@@ -1,3 +1,4 @@
+import Footer from "../Footer/Footer";
 import Logo from "../Logo/Logo";
 import "./Login.css"
 
@@ -26,6 +27,7 @@ function Login() {
                     </div>
                 </div>
             </main>
+            <Footer></Footer>
         </div>
     );
 }

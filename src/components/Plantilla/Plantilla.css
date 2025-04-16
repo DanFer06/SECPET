@@ -1,0 +1,51 @@
+.Botones {
+    margin: 35px;
+}
+.Forma {
+    position: relative;
+    z-index: 1;
+    background: #a0ec87;
+    border-radius: 10px;
+    max-width: 360px;
+    margin: auto;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.Forma button {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #5da2eb;
+    width: 100%;
+    border: 0;
+    margin: 15px 0 25px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.Forma button:hover {
+    background-color: #4387d0;
+}
+.Salir {
+    text-align: center;
+}
+.Salir button {
+    background: rgb(255 72 72);
+    font-size: 17px;
+    color: white;
+    margin: 10px;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    transition: transform 0.5s;
+}
+.Salir button:hover {
+    transform: scale(1.1);
+}
