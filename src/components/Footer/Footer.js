@@ -1,5 +1,5 @@
 import "./Footer.css";
-
+//Pie de página
 function Footer() {
     return(
     <footer>

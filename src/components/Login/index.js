@@ -1,6 +1,10 @@
+//importamos el pie de página y el logo
+
 import Footer from "../Footer/Footer";
 import Logo from "../Logo/Logo";
 import "./Login.css"
+
+//Pagina de inicio de sesión
 
 function Login() {
     return (

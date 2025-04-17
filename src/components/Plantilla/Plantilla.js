@@ -1,5 +1,8 @@
 import "./Plantilla.css"
 
+// Esta es una plantilla que se utilizará en la página principal para todos los usuarios
+//La función recibe el nombre y los botones dependiendo del usuario
+
 function Plantilla({ nombre, lista_botones }) {
     return (
         <div>
