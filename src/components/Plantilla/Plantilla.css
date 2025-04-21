@@ -31,6 +31,11 @@
 .Forma button:hover {
     background-color: #4387d0;
 }
+.Forma button img {
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+}
 .Salir {
     text-align: center;
 }

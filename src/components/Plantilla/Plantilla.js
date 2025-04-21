@@ -12,7 +12,7 @@ function Plantilla({ nombre, lista_botones }) {
                     <div class="Forma">
                         {lista_botones.map((boton) =>
                             <button>
-                                <img src={boton.imagen} alt="Img"></img>
+                                <img src={boton.imagen} alt="Icono"></img>
                                 <span>{boton.texto}</span>
                             </button>
                         )}

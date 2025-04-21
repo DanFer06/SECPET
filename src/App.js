@@ -3,14 +3,14 @@ import Login from './components/Login';
 import Plantilla from './components/Plantilla/Plantilla';
 
 function App() {
-  /* Estas listas se utilizarán para los botones de la pagina principal de cada tipo de usuario
+  /*Estas listas se utilizarán para los botones de la pagina principal de cada tipo de usuario*/
   const lista_opciones_analista = [
     {
       imagen: "/img/.png",
       texto: "Reportes pendientes"
     },
     {
-      imagen: "/img/.png",
+      imagen: "/Iconos/documento-firmado.png",
       texto: "Reportes verificados"
     }
   ];
@@ -26,12 +26,11 @@ function App() {
   ];
   const lista_opciones_admin = [
     {
-      imagen: "/img/.png",
+      imagen: "/Iconos/usuarios.png",
       texto: "Usuarios"
     },
     
   ];
- */
   return (
     <div className="App">
       {/*A continuación se muestra el inicio de sesión "Login"*/}
@@ -40,24 +39,25 @@ function App() {
       {/*A continuación son unicamente pruebas de como se utilizará la plantilla en los diferentes usuarios*/}
       {/*Si es analista*/}
       
-      {/*<Plantilla 
+      <Plantilla 
       nombre="Juan" 
       lista_botones={lista_opciones_analista} 
       ></Plantilla>
-        */}
+      
       {/*Si es lider*/}
       
-      {/*<Plantilla 
+      <Plantilla 
       nombre="Santi" 
       lista_botones={lista_opciones_lider} 
       ></Plantilla>
-        */}
+        
 
       {/*Si es administrador*/}
       
-      {/*<Plantilla nombre="Admin" lista_botones={lista_opciones_admin} 
+      <Plantilla nombre="Admin" 
+      lista_botones={lista_opciones_admin} 
       ></Plantilla>
-      */}
+      
     </div>
   );
 }
