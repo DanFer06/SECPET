@@ -2,11 +2,53 @@
 
 import Footer from "../Footer/Footer";
 import Logo from "../Logo/Logo";
-import "./Login.css"
+import "./Login.css";
+import api from "../../axiosConfig.js";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 //Pagina de inicio de sesión
 
 function Login() {
+    const [Cedula, ActualizarCedula] = useState("");
+    const [Password, ActualizarPassword] = useState("");
+    const [TipoUsuario, ActualizarTipoUsuario] = useState("");
+    const [mensaje, Actualizarmensaje] = useState("");
+    const [Resultado, actualizarResultado] = useState(null);
+    const navigate = useNavigate();
+    const validarDatos = () => {
+        console.log("Cedula:", Cedula, "Password:", Password, "Tipo de usuario:", TipoUsuario); 
+        if (Cedula === "") {
+            Actualizarmensaje("Por favor ingrese su usuario")
+        }
+        else if (Password === "") {
+            Actualizarmensaje("Por favor ingrese su contraseña")
+        }
+        else if (TipoUsuario === "") {
+            Actualizarmensaje("Por favor seleccione un tipo de usuario")
+        }
+        else {
+            api.get(`/usuario/${Cedula}`)
+            .then(response => {
+                console.log(response)
+                actualizarResultado(response.data);
+                console.log(response.data);
+                if (response.data) {
+                    console.log("hay dato");
+                    if (response.data.Password === Password) {
+                        navigate(`/inicio/${response.data.idUsuario}`)
+                    }else {
+                        Actualizarmensaje("La contraseña es incorrecta")
+                    }
+                }
+            })
+            .catch(error => { 
+                console.error("Error: ", error)
+                Actualizarmensaje("El usuario no existe")
+            }) 
+        }
+    };
+    
     return (
         <div>
             <Logo></Logo>
@@ -17,17 +59,21 @@ function Login() {
                 </section>
                 <div class="login-page">
                     <div class="form">
-                        <form class="login-form">
-                            <select name="Tipo de usuario" id="Usuario">
-                                <option value="cero">Tipo de usuario</option>
+                        <div class="login-form">
+                            <select name="Tipo de usuario" id="Usuario" value={TipoUsuario} 
+                            onChange={(e) => ActualizarTipoUsuario(e.target.value)}>
+                                <option value="">Tipo de usuario</option>
                                 <option value="admin">Administrador</option>
                                 <option value="analista">Analista de inventario</option>
                                 <option value="lider">Lider de cuadrilla</option>
                             </select>
-                            <input id="usuario" type="text" placeholder="Usuario" />
-                            <input id="contraseña" type="password" placeholder="Contraseña" />
-                            <button id="ingresar">Ingresar</button>
-                        </form>
+                            <input id="usuario" type="text" placeholder="Usuario" value={Cedula} 
+                            onChange={(e) => ActualizarCedula(e.target.value)}/>
+                            <input id="contraseña" type="password" placeholder="Contraseña" value={Password} 
+                            onChange={(e) => ActualizarPassword(e.target.value)}/>
+                            <p>{mensaje}</p>
+                            <button id="ingresar" onClick={validarDatos}>Ingresar</button>
+                        </div>
                     </div>
                 </div>
             </main>

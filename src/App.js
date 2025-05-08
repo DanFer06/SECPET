@@ -1,64 +1,40 @@
 import './App.css';
 import Login from './components/Login';
 import Plantilla from './components/Plantilla/Plantilla';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  /*Estas listas se utilizarán para los botones de la pagina principal de cada tipo de usuario*/
-  const lista_opciones_analista = [
-    {
-      imagen: "/img/.png",
-      texto: "Reportes pendientes"
-    },
-    {
-      imagen: "/Iconos/documento-firmado.png",
-      texto: "Reportes verificados"
-    }
-  ];
-  const lista_opciones_lider = [
-    {
-      imagen: "/img/.png",
-      texto: "Reportar material"
-    },
-    {
-      imagen: "/img/.png",
-      texto: "Visualizar reportes"
-    }
-  ];
-  const lista_opciones_admin = [
-    {
-      imagen: "/Iconos/usuarios.png",
-      texto: "Usuarios"
-    },
-    
-  ];
   return (
+    <Router>
     <div className="App">
       {/*A continuación se muestra el inicio de sesión "Login"*/}
-      <Login></Login>
+      <Routes>
+        <Route path='/' element = {<Login></Login>}></Route>
+        <Route path='/inicio/:idUsuario' element = {
+          <Plantilla></Plantilla>}></Route>
+      </Routes>
       
       {/*A continuación son unicamente pruebas de como se utilizará la plantilla en los diferentes usuarios*/}
       {/*Si es analista*/}
       
-      <Plantilla 
-      nombre="Juan" 
-      lista_botones={lista_opciones_analista} 
-      ></Plantilla>
+      
       
       {/*Si es lider*/}
-      
+{/*       
       <Plantilla 
       nombre="Santi" 
       lista_botones={lista_opciones_lider} 
       ></Plantilla>
-        
+         */}
 
       {/*Si es administrador*/}
-      
+{/*       
       <Plantilla nombre="Admin" 
       lista_botones={lista_opciones_admin} 
       ></Plantilla>
-      
+       */}
     </div>
+    </Router>
   );
 }
 
