@@ -217,7 +217,7 @@ router.patch ('/aprobar/:idReporte', (req, res) => {
     const {Aprobacion} = req.body;
     db.query(`UPDATE reportematerial SET 
         Aprobacion = '${Aprobacion}'
-        WHERE idUsuario = ${itemId}`, (err, results) => {
+        WHERE idReporte = ${itemId}`, (err, results) => {
             //console.log(results)
         if (err) {
             console.error('Error al aprobar el reporte:', err);
