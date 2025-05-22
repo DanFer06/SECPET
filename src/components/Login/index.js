@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 import Logo from "../Logo/Logo";
 import "./Login.css";
 import api from "../../axiosConfig.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //Pagina de inicio de sesión
@@ -16,6 +16,16 @@ function Login() {
     const [mensaje, Actualizarmensaje] = useState("");
     const [Resultado, actualizarResultado] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const usuarioData = localStorage.getItem("usuario");
+
+        if (usuarioData) {
+            const usuario = JSON.parse(usuarioData);
+            navigate("/inicio");
+        }
+    }, []);
+
     const validarDatos = () => {
         console.log("Cedula:", Cedula, "Password:", Password, "Tipo de usuario:", TipoUsuario); 
         if (Cedula === "") {
@@ -35,8 +45,12 @@ function Login() {
                 console.log(response.data);
                 if (response.data) {
                     console.log("hay dato");
-                    if (response.data.Password === Password) {
-                        navigate(`/inicio/${response.data.idUsuario}`)
+                    if (Number(response.data.idTipoUsuario) !== Number(TipoUsuario)) {
+                        Actualizarmensaje("El tipo de usuario es incorrecto")
+                    }
+                    else if (response.data.Password === Password) {
+                        localStorage.setItem("usuario", JSON.stringify(response.data));
+                        navigate(`/inicio`)
                     }else {
                         Actualizarmensaje("La contraseña es incorrecta")
                     }
@@ -63,9 +77,9 @@ function Login() {
                             <select name="Tipo de usuario" id="Usuario" value={TipoUsuario} 
                             onChange={(e) => ActualizarTipoUsuario(e.target.value)}>
                                 <option value="">Tipo de usuario</option>
-                                <option value="admin">Administrador</option>
-                                <option value="analista">Analista de inventario</option>
-                                <option value="lider">Lider de cuadrilla</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Analista de inventario</option>
+                                <option value="3">Lider de cuadrilla</option>
                             </select>
                             <input id="usuario" type="text" placeholder="Usuario" value={Cedula} 
                             onChange={(e) => ActualizarCedula(e.target.value)}/>

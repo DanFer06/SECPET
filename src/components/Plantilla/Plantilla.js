@@ -3,6 +3,7 @@ import "./Plantilla.css"
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axiosConfig";
 import Logo from "../Logo/Logo.js"
+import Header from "../Header/Header.js";
 
 // Esta es una plantilla que se utilizará en la página principal para todos los usuarios
 //La función recibe el nombre y los botones dependiendo del usuario
@@ -10,31 +11,33 @@ import Logo from "../Logo/Logo.js"
 function Plantilla() {
     const { idUsuario } = useParams();
     const navigate = useNavigate();
-    const [usuario, actualizarUsuario] = useState("");
+    const [usuario, actualizarUsuario] = useState({});
     const [lista_botones, actualizarBotones] = useState([]);
-    
+
 
     useEffect(
         () => {
-            console.log("hola");
-            api.get(`/usuarios/${idUsuario}`)
-                .then(response => {
-                    console.log(response)
-                    actualizarUsuario(response.data.Nombre);
-                    console.log(response.data);
-                    if (response.data) {
-                        console.log("hay dato");
-                        console.log(usuario)
-                        if (response.data.idTipoUsuario === 1) {
+            const obtenerUsuario = async () => {
+                try {
+                    const usuarioData = localStorage.getItem("usuario");
+                    if (!usuarioData) {
+                        navigate("/");
+                        return;
+                    }
+                    else {
+                        const data = JSON.parse(usuarioData);
+                        actualizarUsuario(data);
+                        if (data.idTipoUsuario === 1) {
                             // Es un administrador
                             console.log("Es admin")
                             actualizarBotones([
                                 {
                                     imagen: "/Iconos/usuarios.png",
-                                    texto: "Usuarios"
+                                    texto: "Usuarios",
+                                    ruta: "/Users"
                                 },
                             ])
-                        } else if (response.data.idTipoUsuario === 2) {
+                        } else if (data.idTipoUsuario === 2) {
                             // Es un analista de inventario
                             actualizarBotones([
                                 {
@@ -46,7 +49,7 @@ function Plantilla() {
                                     texto: "Reportes verificados"
                                 }
                             ])
-                        } else if (response.data.idTipoUsuario === 3) {
+                        } else if (data.idTipoUsuario === 3) {
                             // Es un lider de cuadrilla
                             actualizarBotones([
                                 {
@@ -60,34 +63,41 @@ function Plantilla() {
                             ])
                         }
                     }
-                })
-                .catch(error => {
-                    console.log("El usuario no existe")
-                    navigate("/")
-                })
-        }, [idUsuario]
-    )
-    // console.log(lista_botones)
+                } catch (error) {
+                    console.log("El usuario no existe", error);
+                    navigate("/");
+                }
+            };
+            obtenerUsuario();
+
+
+        }, []
+    );
+
+    const salir = () => {
+        localStorage.removeItem("usuario");
+        navigate("/");
+    }
+    const redirigir = (ruta) => {
+        navigate(ruta);
+    }
+
     return (
         <div>
             <Logo></Logo>
-            Bienvenido ... {usuario}
-            <form>
-                <div class="Botones">
-                    <div class="Forma">
-                        {lista_botones && lista_botones.map((boton) =>
-                            <button>
-                                <img src={boton.imagen} alt="Icono"></img>
-                                <span>{boton.texto}</span>
-                            </button>
-                        )}
-                    </div>
+            <div class="Botones">
+                <div class="Forma">
+                    {lista_botones && lista_botones.map((boton) =>
+                        <button onClick={() => redirigir(boton.ruta)}>
+                            <img src={boton.imagen} alt="Icono"></img>
+                            <span>{boton.texto}</span>
+                        </button>
+                    )}
                 </div>
-                <div class="Salir">
-                    <button>Salir</button>
-                </div>
-            </form>
-
+            </div>
+            <div class="Salir">
+                <button onClick={salir}>Salir</button>
+            </div>
         </div>
     );
 }

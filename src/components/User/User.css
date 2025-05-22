@@ -1,0 +1,30 @@
+.contenedor {
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 600px;
+    font-size: 18px;
+}
+.User{
+    display: flex;
+    flex-direction: row;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 15px;
+}
+.name {
+    flex-direction: column;
+    padding: 5px;
+}
+.name p{
+    margin: 3px;
+}
+.User p {
+    flex-direction: column;
+    margin: auto;
+}
+.User img {
+    width: auto;
+    height: 30px;
+    flex-direction: column;
+    cursor: pointer;
+}
