@@ -68,7 +68,7 @@ function Login() {
             <Logo></Logo>
             <main>
                 <section>
-                    <h2>Bienvenido</h2>
+                    <h2 className="bienvenido">Bienvenido</h2>
                     <p>Por favor inicie sesión</p>
                 </section>
                 <div class="login-page">

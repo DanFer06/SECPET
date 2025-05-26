@@ -6,7 +6,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;   
 }
-h2 {
+.bienvenido {
     color: #1d4369;
     text-shadow: 2px 2px 4px #a19b9b;
 }

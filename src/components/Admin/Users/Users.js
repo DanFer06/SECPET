@@ -4,7 +4,6 @@ import api from "../../../axiosConfig";
 import User from "../../User/User";
 
 function Users () {
-    const volver = "/inicio"
     const [Usuarios, actualizarUsuarios] = useState([]);
     useEffect(() =>{
         const obtenerUsuarios = async() => {
@@ -20,7 +19,7 @@ function Users () {
     }, []);
     return (
         <div>
-            <Header text={"Usuarios"} icono={"iconos/agregar-usuario.png"} volver={volver} TextoAlternativo={"Agregar usuario"} redirigir={"/addUser"}></Header>
+            <Header text={"Usuarios"} icono={"iconos/agregar-usuario.png"} volver={"/inicio"} TextoAlternativo={"Agregar usuario"} redirigir={"/addUser"}></Header>
             {Usuarios && Usuarios.map((user) =>
             <User usuario = {user}></User>
             )}   

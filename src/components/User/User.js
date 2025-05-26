@@ -1,5 +1,6 @@
 import "./User.css";
 //Muestra la información básica del usuario para el administrador
+
 function User({usuario}) {
     let TipoUsuario = "";
     if (usuario.idTipoUsuario === 1) {

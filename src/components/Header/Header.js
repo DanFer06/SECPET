@@ -20,7 +20,7 @@ function Header({ text, icono, TextoAlternativo, volver, redirigir }) {
             <div className="encabezado">
                 <h2>{text}</h2>
                 {icono &&
-                    <div className="Usuarios" onClick={funcion}>
+                    <div className="iconos" onClick={funcion}>
                         <img src={icono} alt={TextoAlternativo} />
                     </div>}
             </div>

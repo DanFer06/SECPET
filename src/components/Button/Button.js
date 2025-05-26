@@ -1,9 +1,9 @@
 import "./Button.css";
 //Botón utilizado en varias paginas, ejemplo seguir o enviar
-function Button(text, icono) {
+function Button() {
     return(
         <div>
-            <button id="Boton">`${icono}, ${text}`</button>
+            <button id="Boton">Siguiente</button>
         </div>
     )
 }

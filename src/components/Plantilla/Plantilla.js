@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../axiosConfig";
 import Logo from "../Logo/Logo.js"
 import Header from "../Header/Header.js";
+import Footer from "../Footer/Footer.js";
 
 // Esta es una plantilla que se utilizará en la página principal para todos los usuarios
 //La función recibe el nombre y los botones dependiendo del usuario
@@ -41,8 +42,9 @@ function Plantilla() {
                             // Es un analista de inventario
                             actualizarBotones([
                                 {
-                                    imagen: "/img/.png",
-                                    texto: "Reportes pendientes"
+                                    imagen: "/Iconos/duplicar.png",
+                                    texto: "Reportes pendientes",
+                                    ruta: "/PendingReport"
                                 },
                                 {
                                     imagen: "/Iconos/documento-firmado.png",
@@ -53,11 +55,12 @@ function Plantilla() {
                             // Es un lider de cuadrilla
                             actualizarBotones([
                                 {
-                                    imagen: "/img/.png",
-                                    texto: "Reportar material"
+                                    imagen: "/Iconos/agregar-documento.png",
+                                    texto: "Reportar material",
+                                    ruta: "/SendReport"
                                 },
                                 {
-                                    imagen: "/img/.png",
+                                    imagen: "Iconos/duplicar.png",
                                     texto: "Visualizar reportes"
                                 }
                             ])
@@ -98,6 +101,7 @@ function Plantilla() {
             <div class="Salir">
                 <button onClick={salir}>Salir</button>
             </div>
+            <Footer></Footer>
         </div>
     );
 }

@@ -11,8 +11,8 @@
     cursor: pointer;
 }
 #volver img {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     margin: 0 3px;
 }
 
@@ -21,17 +21,15 @@
     flex-direction: row;
     justify-content: space-between;
     max-width: 630px;
-    /* gap: 400px; */
     margin: 0 auto;
     align-items: center;
 }
 .encabezado h2{
     margin: 0 15px;
 }
-.Usuarios img {
+.iconos img {
     width: 30px;
     height: 30px;
-    /* float: right; */
     cursor: pointer;
     margin: 0 15px;
 }
