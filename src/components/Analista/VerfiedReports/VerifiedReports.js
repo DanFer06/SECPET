@@ -3,20 +3,19 @@ import { useEffect, useState } from "react";
 import api from "../../../axiosConfig";
 import Reporte from "../../Reporte/Reporte";
 
-//Visualización de reportes
-function PendingReport () {
+function VerifiedReports () {
     const [Reportes, actualizarReporte] = useState([]);
 
     useEffect(() => {
         const obtenerReportes = async() => {
             try {
                 const response = await api.get("/reportematerial");
-                const reportesPendientes = response.data.filter(reporte =>
-                    reporte.Aprobacion === null
+                const reportesAprobados = response.data.filter(reporte =>
+                    reporte.Aprobacion !== null
                 );
 
-                actualizarReporte(reportesPendientes);
-                console.log(reportesPendientes);
+                actualizarReporte(reportesAprobados);
+                console.log(reportesAprobados);
             } catch (error) {
                 console.log(error);
             }
@@ -25,11 +24,12 @@ function PendingReport () {
     }, []);
     return(
         <div>
-            <Header text={"Reportes Pendientes"} volver={"/inicio"}></Header>
+            <Header text={"Visualización de reportes"} volver={"/inicio"}></Header>
             {Reportes && Reportes.map((Report) =>
-            <Reporte Reporte = {Report}></Reporte>
+            <Reporte Reporte={Report}></Reporte>
             )}
         </div>
     )
 }
-export default PendingReport;
+
+export default VerifiedReports;

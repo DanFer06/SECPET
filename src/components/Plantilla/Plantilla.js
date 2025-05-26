@@ -48,7 +48,8 @@ function Plantilla() {
                                 },
                                 {
                                     imagen: "/Iconos/documento-firmado.png",
-                                    texto: "Reportes verificados"
+                                    texto: "Reportes verificados",
+                                    ruta: "/VerifiedReports"
                                 }
                             ])
                         } else if (data.idTipoUsuario === 3) {

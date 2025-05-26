@@ -2,20 +2,23 @@
     max-width: 700px;
     margin: 20px auto;
     display: flex;
+    cursor: pointer;
     flex-direction: row;
     background-color: aliceblue;
     border-radius: 20px;
     padding: 15px;
 }
-.reporte .id_reporte {
+.id_reporte {
     flex-direction: column;
     padding: 5px;
     margin: auto auto auto 0;
 }
-.reporte .id_reporte p{
+.id_reporte p{
     margin: 3px;
 }
 .reporte img {
     flex-direction: column;
-    margin: auto 0;
+    margin: auto 20px;
+    width: auto;
+    height: 25px;
 }
