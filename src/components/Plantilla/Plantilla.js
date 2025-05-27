@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Plantilla.css"
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../../axiosConfig";
 import Logo from "../Logo/Logo.js"
-import Header from "../Header/Header.js";
 import Footer from "../Footer/Footer.js";
 
 // Esta es una plantilla que se utilizará en la página principal para todos los usuarios
 //La función recibe el nombre y los botones dependiendo del usuario
 
 function Plantilla() {
-    const { idUsuario } = useParams();
     const navigate = useNavigate();
     const [usuario, actualizarUsuario] = useState({});
     const [lista_botones, actualizarBotones] = useState([]);
@@ -62,7 +59,8 @@ function Plantilla() {
                                 },
                                 {
                                     imagen: "Iconos/duplicar.png",
-                                    texto: "Visualizar reportes"
+                                    texto: "Visualizar reportes",
+                                    ruta: "/ReportsVerified"
                                 }
                             ])
                         }

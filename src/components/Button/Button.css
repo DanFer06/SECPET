@@ -1,11 +1,18 @@
-#Boton {
-    font-size: 15px;
+#boton {
+    font-size: 20px;
     border: 0;
     margin: 15px auto;
     color: white;
     background-color: #4CAF50;
     text-align: center;
-    padding: 10px 30px;
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
     border-radius: 10px;
     display: block;
+}
+#boton img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
 }

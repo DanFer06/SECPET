@@ -3,10 +3,12 @@ import AddUser from './components/Admin/addUser/addUser';
 import Users from './components/Admin/Users/Users';
 import PendingReport from './components/Analista/PendingReport/PendingReport';
 import VerifiedReports from './components/Analista/VerfiedReports/VerifiedReports';
+import ReportsVerified from './components/Lider/ReportsVerified/ReportsVerified';
 import SendReport from './components/Lider/SendReport/SendReport';
 import Login from './components/Login';
 import Plantilla from './components/Plantilla/Plantilla';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ViewReporte from './components/ViewReporte/ViewReporte';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path='/SendReport' element = {<SendReport></SendReport>}></Route>
         <Route path='/PendingReport' element = {<PendingReport></PendingReport>}></Route>
         <Route path='/VerifiedReports' element = {<VerifiedReports></VerifiedReports>}></Route>
+        <Route path='/ViewReporte/:idReporte' element = {<ViewReporte></ViewReporte>}></Route>
+        <Route path='/ReportsVerified' element={<ReportsVerified></ReportsVerified>}></Route>
       </Routes>
     </div>
     </Router>

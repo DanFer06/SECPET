@@ -1,0 +1,64 @@
+.contendor {
+    max-width: 700px;
+    margin: auto;
+    padding: 35px;
+    background-color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.material {
+    width: 90%;
+    margin: auto auto 20px auto;
+    background-color: rgb(211, 211, 211);
+    border-radius: 15px;
+}
+#tablaMateriales {
+    text-align: center;
+    padding: 15px;
+    border-spacing: 0;
+}
+#tablaMateriales th, td{
+    padding: 10px;
+    width: 27%;
+    border: 1px solid #00000073;
+}
+#comentario {
+    width: 90%;
+    height: 70px;
+    margin: 10px 30px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 15px;
+    padding: 10px;
+}
+#aprobacion {
+    max-width: 600px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-around;
+}
+#aprobacion button {
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px 30px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+}
+#aprobado {
+    background-color: #4bdb51;
+}
+#rechazado {
+    background-color: #db4b4b;
+}
+.check {
+    background-color: #4bdb51;
+    padding: 10px 30px;
+    display: block;
+    margin: 30px auto 0 auto;
+    color: white;
+    border-radius: 15px;
+}
+.check h2 {
+    margin: 0;
+}

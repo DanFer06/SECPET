@@ -13,7 +13,7 @@ function Header({ text, icono, TextoAlternativo, volver, redirigir }) {
         <div>
             <div id="volver">
             <button onClick={regresar}>
-                <img src="iconos/angulo-izquierdo.png" alt=""></img>
+                <img src="/iconos/angulo-izquierdo.png" alt=""></img>
                 <span>Volver</span>
             </button>
             </div>

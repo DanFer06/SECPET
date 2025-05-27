@@ -141,6 +141,23 @@ router.get('/reportematerial', (req, res) => {
     });
 });
 
+//Obtener reporte por id de usuario
+router.get('/reportematerial/usuario/:idUsuario', (req, res) => {
+    const itemId = req.params.idUsuario;
+    db.query('SELECT * FROM reportematerial WHERE idUsuario = ?', [itemId], (err, results) => {
+        if (err) {
+            console.error('Error al consultar la base de datos:', err);
+            res.status(500).json({ error: 'Error al obtener los datos' });
+            return;
+        }
+        if (results.length === 0) {
+            res.status(404).json({ message: 'Reporte no encontrado' });
+            return;
+        }
+        res.status(200).json(results);
+    });
+});
+
 //Obtener reporte mediante id
 router.get('/reportematerial/:idReporte', (req, res) => {
     const itemId = req.params.idReporte;
@@ -151,9 +168,11 @@ router.get('/reportematerial/:idReporte', (req, res) => {
             return;
         }
         if (results.length === 0) {
+            console.log("Dato no encontrado")
             res.status(404).json({ message: 'Dato no encontrado' });
             return;
         }
+        console.log(results)
         res.status(200).json(results[0]);
     });
 });
@@ -212,13 +231,13 @@ router.post('/material', (req, res) => {
 
 // Aprobar reporte
 router.patch ('/aprobar/:idReporte', (req, res) => {
-    // console.log(req.body)
     const itemId = req.params.idReporte;
-    const {Aprobacion} = req.body;
+    const {valor} = req.body;
+    const {comentario} = req.body;
     db.query(`UPDATE reportematerial SET 
-        Aprobacion = '${Aprobacion}'
+        Aprobacion = '${valor}',
+        Comentario = '${comentario}'
         WHERE idReporte = ${itemId}`, (err, results) => {
-            //console.log(results)
         if (err) {
             console.error('Error al aprobar el reporte:', err);
             res.status(500).json({ error: 'Error al aprobar el reporte' });
@@ -229,7 +248,7 @@ router.patch ('/aprobar/:idReporte', (req, res) => {
             res.status(404).json({ message: 'Reporte no encontrado' });
             return;
         }
-        res.status(201).json({ message: `Reporte ${Aprobacion} exitosamente`, Id: itemId });
+        res.status(201).json({ message: `Reporte ${valor} exitosamente`, Id: itemId });
     });
 });
 

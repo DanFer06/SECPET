@@ -3,6 +3,12 @@
     margin: auto;
     padding: 5px 15px;
 }
+#mensaje {
+    text-align: center;
+    font-size: 1.2em;
+    color: rgb(223 27 27);
+    margin: 20px 0;
+}
 .contenedor input {
     display: block;
     text-align: center;

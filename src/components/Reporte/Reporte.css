@@ -7,11 +7,12 @@
     background-color: aliceblue;
     border-radius: 20px;
     padding: 15px;
+    justify-content: space-between;
 }
 .id_reporte {
     flex-direction: column;
     padding: 5px;
-    margin: auto auto auto 0;
+    margin: auto 0;
 }
 .id_reporte p{
     margin: 3px;
