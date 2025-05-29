@@ -19,3 +19,21 @@
     width: 90%;
     margin: 10px auto 90px auto;
 }
+#botonSiguiente {
+    font-size: 20px;
+    border: 0;
+    margin: 15px auto;
+    color: white;
+    background-color: #4CAF50;
+    text-align: center;
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    display: block;
+}
+#botonSiguiente img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+}

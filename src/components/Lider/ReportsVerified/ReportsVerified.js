@@ -16,8 +16,14 @@ function VerifiedReports () {
                     reporte.Aprobacion !== null
                 );
 
-                actualizarReporte(reportesAprobados);
-                console.log(reportesAprobados);
+                const reportesOrdenados = reportesAprobados.sort((a, b) => {
+                    const fechaA = new Date(a.FechaReporte);
+                    const fechaB = new Date(b.FechaReporte);
+                    return fechaB - fechaA; // Orden descendente
+                });
+
+                actualizarReporte(reportesOrdenados);
+                console.log(reportesOrdenados);
             } catch (error) {
                 console.log(error);
             }

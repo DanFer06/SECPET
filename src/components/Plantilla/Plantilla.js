@@ -87,6 +87,7 @@ function Plantilla() {
     return (
         <div>
             <Logo></Logo>
+            <h2 id="Bienvenido">Bienvenido, {usuario.Nombre}</h2>
             <div class="Botones">
                 <div class="Forma">
                     {lista_botones && lista_botones.map((boton) =>

@@ -26,8 +26,12 @@ function PendingReport () {
     return(
         <div>
             <Header text={"Reportes Pendientes"} volver={"/inicio"}></Header>
-            {Reportes && Reportes.map((Report) =>
-            <Reporte Reporte = {Report}></Reporte>
+            {Reportes && Reportes.length > 0 ? (
+                Reportes.map((Report) =>
+                    <Reporte Reporte={Report} key={Report.id}></Reporte>
+                )
+            ) : (
+                <h2 style={{ textAlign: "center", marginTop: "70px" }}>No se encontraron reportes para mostrar.</h2>
             )}
         </div>
     )

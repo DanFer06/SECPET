@@ -1,0 +1,51 @@
+.contenedorMaterial {
+    max-width: 700px;
+    margin: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.encabezadoMaterial {
+    display: flex;
+    flex-direction: row;
+}
+.encabezadoMaterial h3 {
+    width: 50%;
+    flex-direction: column;
+    margin: 10px;
+}
+.enviarMaterial {
+    display: flex;
+    flex-direction: row;
+}
+.enviarMaterial input {
+    padding: 8px;
+    width: 50%;
+    flex-direction: column;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+#agregarMaterial {
+    display: block;
+    padding: 5px 12px;
+    margin: 15px auto;
+    font-size: 30px;
+    border-radius: 23px;
+}
+.enviarMaterial input:focus {
+    border: 2px solid #419744;
+    border-radius: 30px;
+}
+#botonEnviar {
+    font-size: 15px;
+    border: 0;
+    margin: 0 auto;
+    color: white;
+    background-color: #4CAF50;
+    text-align: center;
+    padding: 10px 30px;
+    border-radius: 10px;
+    display: block;
+}

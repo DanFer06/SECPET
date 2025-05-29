@@ -1,3 +1,9 @@
+#Bienvenido {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 .Botones {
     margin: 35px;
 }

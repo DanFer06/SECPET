@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Plantilla from './components/Plantilla/Plantilla';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ViewReporte from './components/ViewReporte/ViewReporte';
+import SendReportMaterial from './components/Lider/SendReportMaterial/SendReportMaterial';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/VerifiedReports' element = {<VerifiedReports></VerifiedReports>}></Route>
         <Route path='/ViewReporte/:idReporte' element = {<ViewReporte></ViewReporte>}></Route>
         <Route path='/ReportsVerified' element={<ReportsVerified></ReportsVerified>}></Route>
+        <Route path='/SendReportMaterial/:idReporte' element={<SendReportMaterial></SendReportMaterial>}></Route>
       </Routes>
     </div>
     </Router>

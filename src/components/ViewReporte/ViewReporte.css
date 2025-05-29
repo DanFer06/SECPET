@@ -52,9 +52,8 @@
     background-color: #db4b4b;
 }
 .check {
-    background-color: #4bdb51;
     padding: 10px 30px;
-    display: block;
+    display: table;
     margin: 30px auto 0 auto;
     color: white;
     border-radius: 15px;
