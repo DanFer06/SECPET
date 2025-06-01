@@ -1,4 +1,5 @@
 #Bienvenido {
+    font-family: "Roboto", sans-serif;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
@@ -12,7 +13,7 @@
     z-index: 1;
     background: #a0ec87;
     border-radius: 10px;
-    max-width: 360px;
+    max-width: 480px;
     margin: auto;
     padding: 45px;
     text-align: center;
@@ -24,10 +25,10 @@
     background: #5da2eb;
     width: 100%;
     border: 0;
-    margin: 15px 0 25px;
+    margin: 40px 0 20px;
     padding: 15px;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 25px;
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -38,8 +39,8 @@
     background-color: #4387d0;
 }
 .Forma button img {
-    height: 25px;
-    width: 25px;
+    height: auto;
+    width: 30px;
     margin-right: 10px;
 }
 .Salir {
@@ -47,7 +48,7 @@
 }
 .Salir button {
     background: rgb(255 72 72);
-    font-size: 17px;
+    font-size: 20px;
     color: white;
     margin: 10px;
     padding: 10px 22px;

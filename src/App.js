@@ -27,7 +27,7 @@ function App() {
         <Route path='/VerifiedReports' element = {<VerifiedReports></VerifiedReports>}></Route>
         <Route path='/ViewReporte/:idReporte' element = {<ViewReporte></ViewReporte>}></Route>
         <Route path='/ReportsVerified' element={<ReportsVerified></ReportsVerified>}></Route>
-        <Route path='/SendReportMaterial/:idReporte' element={<SendReportMaterial></SendReportMaterial>}></Route>
+        <Route path="/SendReportMaterial/:idReporte" element={<SendReportMaterial></SendReportMaterial>}></Route>
       </Routes>
     </div>
     </Router>

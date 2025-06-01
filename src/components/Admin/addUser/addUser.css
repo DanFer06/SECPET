@@ -24,3 +24,21 @@
     border: 2px solid rgb(73, 223, 60);
     border-radius: 10px;
 }
+#boton {
+    font-size: 20px;
+    border: 0;
+    margin: 40px auto;
+    color: white;
+    background-color: #4CAF50;
+    text-align: center;
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    display: block;
+}
+#boton img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+}

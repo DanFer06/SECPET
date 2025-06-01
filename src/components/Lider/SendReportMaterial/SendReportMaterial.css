@@ -1,6 +1,6 @@
 .contenedorMaterial {
     max-width: 700px;
-    margin: auto;
+    margin: 50px auto 0 auto;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -28,24 +28,35 @@
     outline: none;
 }
 #agregarMaterial {
-    display: block;
-    padding: 5px 12px;
-    margin: 15px auto;
-    font-size: 30px;
-    border-radius: 23px;
+    background: none;
+    border: none;
+    display: flex;
+    margin: auto;
+}
+#agregarMaterial img {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
 }
 .enviarMaterial input:focus {
     border: 2px solid #419744;
     border-radius: 30px;
 }
 #botonEnviar {
-    font-size: 15px;
+    font-size: 20px;
     border: 0;
-    margin: 0 auto;
+    margin: 35px auto;
     color: white;
     background-color: #4CAF50;
     text-align: center;
-    padding: 10px 30px;
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
     border-radius: 10px;
     display: block;
+}
+#botonEnviar img {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 10px;
 }

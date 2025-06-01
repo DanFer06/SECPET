@@ -56,7 +56,7 @@ router.get('/usuarios/:idusuario', (req, res) => {
 // Crear un nuevo usuario
 router.post('/crearusuarios', (req, res) => {
     console.log(req.body)
-    const {Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario} = req.body;
+    const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
     db.query(`INSERT INTO usuarios SET 
         Cedula = '${Cedula}', 
         Nombre = '${Nombre}', 
@@ -76,10 +76,10 @@ router.post('/crearusuarios', (req, res) => {
 });
 
 // Actualizar información de usuario
-router.put ('/actualizarusuarios/:idusuario', (req, res) => {
+router.put('/actualizarusuarios/:idusuario', (req, res) => {
     // console.log(req.body)
     const itemId = req.params.idusuario;
-    const {Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario} = req.body;
+    const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
     db.query(`UPDATE usuarios SET 
         Cedula = '${Cedula}', 
         Nombre = '${Nombre}', 
@@ -90,7 +90,7 @@ router.put ('/actualizarusuarios/:idusuario', (req, res) => {
         idBodega = ${idBodega}, 
         idTipoUsuario = ${idTipoUsuario}
         WHERE idUsuario = ${itemId}`, (err, results) => {
-            //console.log(results)
+        //console.log(results)
         if (err) {
             console.error('Error al actualizar los datos:', err);
             res.status(500).json({ error: 'Error al actualizar los datos' });
@@ -105,8 +105,8 @@ router.put ('/actualizarusuarios/:idusuario', (req, res) => {
     });
 });
 
- //Eliminar usuario
- router.delete('/eliminarusuarios/:idusuario', (req, res) => {
+//Eliminar usuario
+router.delete('/eliminarusuarios/:idusuario', (req, res) => {
     const itemId = req.params.idusuario;
     db.query('DELETE FROM usuarios WHERE idUsuario = ?', [itemId], (err, results) => {
         if (err) {
@@ -197,7 +197,7 @@ router.get('/obtenermaterial/:idReporte', (req, res) => {
 //Enviar reporte
 router.post('/enviarreporte', (req, res) => {
     // console.log(req.body)
-    const {NumOT, FechaReporte, idUsuario, FechaCierreOT} = req.body;
+    const { NumOT, FechaReporte, idUsuario, FechaCierreOT } = req.body;
     db.query(`INSERT INTO reportematerial SET 
         NumOT = '${NumOT}', 
         FechaReporte = '${FechaReporte}', 
@@ -213,27 +213,47 @@ router.post('/enviarreporte', (req, res) => {
 });
 
 //Reportar Material
-router.post('/material', (req, res) => {
+router.post('/material/:idReporte', (req, res) => {
+    const reporteId = req.params.idReporte;
     console.log(req.body)
-    const {idReporte, CantMaterial, CodigoMaterial} = req.body;
-    db.query(`INSERT INTO material SET 
-        idReporte = '${idReporte}', 
-        CantMaterial = '${CantMaterial}', 
-        CodigoMaterial = '${CodigoMaterial}'`, (err, results) => {
-        if (err) {
-            console.error('Error al insertar el dato:', err);
-            res.status(500).json({ error: 'Error al crear el dato' });
-            return;
-        }
-        res.status(201).json({ message: 'Dato creado exitosamente', insertId: results.insertId });
+    const { materiales } = req.body; // Desestructurar el arreglo de materiales del cuerpo de la solicitud
+
+    // Validar que se haya proporcionado un arreglo de materiales
+    if (!materiales || !Array.isArray(materiales) || materiales.length === 0) {
+        return res.status(400).json({ error: 'Se esperaba un arreglo de materiales' });
+    }
+
+    let insertCount = 0;
+    let errorOccurred = false;
+
+    // Iterar sobre cada material y realizar la inserción
+    materiales.forEach(material => {
+        const { cantMaterial, codigoMaterial } = material;
+
+        db.query(`INSERT INTO material SET 
+            idReporte = '${reporteId}', 
+            CantMaterial = '${Number(cantMaterial)}', 
+            CodigoMaterial = '${codigoMaterial}'`, (err, results) => {
+            if (err) {
+                console.error('Error al insertar el dato:', err);
+                errorOccurred = true;
+                return res.status(500).json({ error: 'Error al crear el dato' });
+            }
+            insertCount++;
+            console.log(`Material insertado: ${codigoMaterial}, Cantidad: ${cantMaterial}, ID: ${results.insertId}`);
+
+            if (insertCount === materiales.length && !errorOccurred) {
+                res.status(201).json({ message: 'Datos creados exitosamente', insertCount });
+            }
+        });
     });
 });
 
 // Aprobar reporte
-router.patch ('/aprobar/:idReporte', (req, res) => {
+router.patch('/aprobar/:idReporte', (req, res) => {
     const itemId = req.params.idReporte;
-    const {valor} = req.body;
-    const {comentario} = req.body;
+    const { valor } = req.body;
+    const { comentario } = req.body;
     db.query(`UPDATE reportematerial SET 
         Aprobacion = '${valor}',
         Comentario = '${comentario}'
@@ -253,4 +273,4 @@ router.patch ('/aprobar/:idReporte', (req, res) => {
 });
 
 
- export default router;
+export default router;

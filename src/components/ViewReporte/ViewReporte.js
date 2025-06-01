@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./ViewReporte.css";
 import api from "../../axiosConfig";
-//Visualizar toda la información del reporte
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para obtener el ID de la URL
 import Header from "../Header/Header";
 
+//Visualizar toda la información del reporte
 
 function ViewReporte() {
     const [comentario, actualizarComentario] = useState("");

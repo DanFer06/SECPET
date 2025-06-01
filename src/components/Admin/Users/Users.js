@@ -21,7 +21,7 @@ function Users () {
         <div>
             <Header text={"Usuarios"} icono={"iconos/agregar-usuario.png"} volver={"/inicio"} TextoAlternativo={"Agregar usuario"} redirigir={"/addUser"}></Header>
             {Usuarios && Usuarios.map((user) =>
-            <User usuario = {user}></User>
+            <User usuario = {user} key={user.idUsuario}></User>
             )}   
         </div>
     )
