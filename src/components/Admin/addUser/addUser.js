@@ -10,6 +10,7 @@ function AddUser() {
     const [email, actualizarEmail] = useState('');
     const [numeroCuadrilla, actualizarNumeroCuadrilla] = useState('');
     const [numeroBodega, actualizarNumeroBodega] = useState('');
+    const [mensajeError, actualizarMensajeError] = useState('');
 
     const cambioTipoUsuario = (e) => {
         const valor = e.target.value;
@@ -18,6 +19,34 @@ function AddUser() {
             actualizarNumeroBodega('');
         } else if (valor !== '3') {
             actualizarNumeroCuadrilla('');
+        }
+    }
+
+    const validarCampos = () => {
+        if (!tipoUsuario || !nombre || !apellido || !cedula || !email) {
+            actualizarMensajeError("Por favor, complete todos los campos.");
+            return false;
+        }
+        if (tipoUsuario === "2" && !numeroBodega) {
+            actualizarMensajeError("Por favor, ingrese el número de bodega.");
+            return false;
+        }
+        if (tipoUsuario === "3" && !numeroCuadrilla) {
+            actualizarMensajeError("Por favor, ingrese el número de cuadrilla.");
+            return false;
+        } 
+        return true;
+
+        if (window.confirm("¿Desea seguir con la creación del usuario?")) {
+            const usuario = {
+                tipoUsuario,
+                nombre,
+                apellido,
+                cedula,
+                email,
+                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : null,
+                numeroBodega: tipoUsuario === "2" ? numeroBodega : null
+            };
         }
     }
 
@@ -42,7 +71,15 @@ function AddUser() {
                     <input type="text" placeholder="Número de cuadrilla" value={numeroCuadrilla} onChange={(e) => actualizarNumeroCuadrilla(e.target.value)}></input>
                 )}
             </div>
-            <button id="boton">
+            {mensajeError && <p className="error" style={
+                {
+                    color: "red",
+                    fontSize: "20px",
+                    textAlign: "center",
+                    marginTop: "30px"
+                }
+            }>{mensajeError}</p>}
+            <button id="boton" onClick={() => {validarCampos()}}>
                 <span>Siguiente</span>
                 <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
             </button>

@@ -26,21 +26,49 @@ function SendReportMaterial() {
     };
 
     const enviarMaterial = async () => {
-        const camposVacios = materiales.every(
-            (mat) => mat.codigoMaterial.trim() === "" || mat.cantMaterial.trim() === ""
+        // Validación de campos vacíos
+        const materialParaEnviar = materiales.filter(
+            (mat) => mat.codigoMaterial.trim() !== "" || mat.cantMaterial.trim() !== ""
+        ).map(materiales => ({
+            codigoMaterial: materiales.codigoMaterial.trim(),
+            cantMaterial: materiales.cantMaterial.trim()
+        })
         );
-        if (camposVacios) {
+
+        console.log("Materiales a enviar:", materialParaEnviar);
+
+        // 2. Validar si hay campos llenos a medias
+        let camposVacios = false;
+        for (const mat of materialParaEnviar) { // Iteramos sobre los que no están completamente vacíos
+            const codigoVacio = mat.codigoMaterial.trim() === "";
+            const cantidadVacia = mat.cantMaterial.trim() === "";
+
+            if ((!codigoVacio && cantidadVacia) || (codigoVacio && !cantidadVacia)) {
+                camposVacios = true;
+                break;
+            }
+        }
+
+
+        if (materialParaEnviar.length === 0) {
+            // No hay ningún material con al menos un campo lleno
             if (window.confirm("No hay materiales para enviar. ¿Desea continuar sin enviar materiales?")) {
                 navigate(`/inicio`);
             }
             return;
-        };
+        }
+
+        if (camposVacios) {
+            // Hay al menos una fila con código pero sin cantidad, o cantidad pero sin código
+            window.alert("Debes completar tanto el Código de material como la Cantidad para cada material.");
+            return;
+        }
 
 
         if (window.confirm(`¿Está seguro de que desea enviar el material del reporte No.${idReporte}?`)) {
             try {
                 await api.post(`/Material/${idReporte}`, {
-                    materiales: materiales.map(material => ({
+                    materiales: materialParaEnviar.map(material => ({
                         codigoMaterial: material.codigoMaterial,
                         cantMaterial: material.cantMaterial
                     }))
