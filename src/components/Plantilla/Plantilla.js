@@ -77,15 +77,17 @@ function Plantilla() {
     );
 
     const salir = () => {
-        localStorage.removeItem("usuario");
-        navigate("/");
+        if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+            localStorage.removeItem("usuario");
+            navigate("/");
+        }
     }
     const redirigir = (ruta) => {
         navigate(ruta);
     }
 
     return (
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Logo></Logo>
             <h2 id="Bienvenido">Bienvenido, {usuario.Nombre}</h2>
             <div class="Botones">

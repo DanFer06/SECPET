@@ -3,6 +3,7 @@ import "./ViewReporte.css";
 import api from "../../axiosConfig";
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para obtener el ID de la URL
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 //Visualizar toda la información del reporte
 
@@ -86,7 +87,7 @@ function ViewReporte() {
     }
 
     return (
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Header volver={ruta}></Header>
             <div className="contendor">
                 <h3>Reporte número: {idReporte}</h3>
@@ -153,6 +154,7 @@ function ViewReporte() {
                     </div>
                 )}
             </div>
+            <Footer></Footer>
         </div>
     )
 }

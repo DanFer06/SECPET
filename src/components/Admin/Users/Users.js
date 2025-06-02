@@ -2,6 +2,7 @@ import Header from "../../Header/Header";
 import { useEffect, useState } from "react";
 import api from "../../../axiosConfig";
 import User from "../../User/User";
+import Footer from "../../Footer/Footer";
 
 function Users () {
     const [Usuarios, actualizarUsuarios] = useState([]);
@@ -16,13 +17,14 @@ function Users () {
             }
         }
         obtenerUsuarios();
-    }, []);
+    }, [Usuarios]);
     return (
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Header text={"Usuarios"} icono={"iconos/agregar-usuario.png"} volver={"/inicio"} TextoAlternativo={"Agregar usuario"} redirigir={"/addUser"}></Header>
             {Usuarios && Usuarios.map((user) =>
             <User usuario = {user} key={user.idUsuario}></User>
             )}   
+            <Footer></Footer>
         </div>
     )
 }

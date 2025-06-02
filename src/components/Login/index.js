@@ -85,7 +85,7 @@ function Login() {
                             onChange={(e) => ActualizarCedula(e.target.value)}/>
                             <input id="contraseña" type="password" placeholder="Contraseña" value={Password} 
                             onChange={(e) => ActualizarPassword(e.target.value)}/>
-                            <p>{mensaje}</p>
+                            <p style={{ color: "red" }}>{mensaje}</p>
                             <button id="ingresar" onClick={validarDatos}>Ingresar</button>
                         </div>
                     </div>

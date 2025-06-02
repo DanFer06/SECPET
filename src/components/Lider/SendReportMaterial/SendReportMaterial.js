@@ -2,6 +2,7 @@ import "./SendReportMaterial.css";
 import { useState, useEffect } from "react";
 import api from "../../../axiosConfig";
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para obtener el ID de la URL
+import Footer from "../../Footer/Footer";
 
 //Componente donde se agrega el material al reporte
 
@@ -83,7 +84,7 @@ function SendReportMaterial() {
     }
 
     return (
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <div className="contenedorMaterial">
                 <div className="encabezadoMaterial">
                     <h3>Código de material</h3>
@@ -114,6 +115,7 @@ function SendReportMaterial() {
                 <span>Enviar</span>
                 <img src="/iconos/agregar-documento.png" alt="icono"></img>
             </button>
+            <Footer></Footer>
         </div>
     );
 }

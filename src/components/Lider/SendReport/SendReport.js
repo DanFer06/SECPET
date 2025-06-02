@@ -3,6 +3,7 @@ import Header from "../../Header/Header";
 import api from "../../../axiosConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../Footer/Footer";
 
 //Enviar información de reporte
 function SendReport() {
@@ -47,7 +48,7 @@ function SendReport() {
         }
     }
     return (
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Header volver={"/inicio"}></Header>
             <div className="contenedor">
                 <h2>Número de orden de trabajo</h2>
@@ -60,6 +61,7 @@ function SendReport() {
                 <span>Siguiente</span>
                 <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
             </button>
+            <Footer></Footer>
         </div>
     )
 }

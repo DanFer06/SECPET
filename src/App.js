@@ -10,6 +10,8 @@ import Plantilla from './components/Plantilla/Plantilla';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ViewReporte from './components/ViewReporte/ViewReporte';
 import SendReportMaterial from './components/Lider/SendReportMaterial/SendReportMaterial';
+import ModifyUser from './components/Admin/modifyUser/modifyUser';
+import UserInfo from './components/Admin/userInfo/userInfo';
 
 function App() {
   return (
@@ -18,8 +20,7 @@ function App() {
       {/* Rutas de las diferentes páginas del proyecto */}
       <Routes>
         <Route path='/' element = {<Login></Login>}></Route>
-        <Route path='/inicio' element = {
-          <Plantilla></Plantilla>}></Route>
+        <Route path='/inicio' element = {<Plantilla></Plantilla>}></Route>
         <Route path='/Users' element = {<Users></Users>}></Route>
         <Route path='/addUser' element = {<AddUser></AddUser>}></Route>
         <Route path='/SendReport' element = {<SendReport></SendReport>}></Route>
@@ -28,6 +29,8 @@ function App() {
         <Route path='/ViewReporte/:idReporte' element = {<ViewReporte></ViewReporte>}></Route>
         <Route path='/ReportsVerified' element={<ReportsVerified></ReportsVerified>}></Route>
         <Route path="/SendReportMaterial/:idReporte" element={<SendReportMaterial></SendReportMaterial>}></Route>
+        <Route path='/modifyUser/:idUsuario' element = {<ModifyUser></ModifyUser>}></Route>
+        <Route path='/userInfo/:idUsuario' element = {<UserInfo></UserInfo>}></Route>
       </Routes>
     </div>
     </Router>

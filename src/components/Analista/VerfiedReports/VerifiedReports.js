@@ -2,6 +2,7 @@ import Header from "../../Header/Header";
 import { useEffect, useState } from "react";
 import api from "../../../axiosConfig";
 import Reporte from "../../Reporte/Reporte";
+import Footer from "../../Footer/Footer";
 
 function VerifiedReports () {
     const [Reportes, actualizarReporte] = useState([]);
@@ -29,11 +30,12 @@ function VerifiedReports () {
         obtenerReportes();
     }, []);
     return(
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Header text={"Visualización de reportes"} volver={"/inicio"}></Header>
             {Reportes && Reportes.map((Report) =>
             <Reporte Reporte={Report}></Reporte>
             )}
+            <Footer></Footer>
         </div>
     )
 }

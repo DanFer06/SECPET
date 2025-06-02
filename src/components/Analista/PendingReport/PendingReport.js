@@ -2,6 +2,7 @@ import Header from "../../Header/Header";
 import { useEffect, useState } from "react";
 import api from "../../../axiosConfig";
 import Reporte from "../../Reporte/Reporte";
+import Footer from "../../Footer/Footer";
 
 //Visualización de reportes
 function PendingReport () {
@@ -24,7 +25,7 @@ function PendingReport () {
         obtenerReportes();
     }, []);
     return(
-        <div>
+        <div style={{ marginBottom: "100px" }}>
             <Header text={"Reportes Pendientes"} volver={"/inicio"}></Header>
             {Reportes && Reportes.length > 0 ? (
                 Reportes.map((Report) =>
@@ -33,6 +34,7 @@ function PendingReport () {
             ) : (
                 <h2 style={{ textAlign: "center", marginTop: "70px" }}>No se encontraron reportes para mostrar.</h2>
             )}
+            <Footer></Footer>
         </div>
     )
 }
