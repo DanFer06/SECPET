@@ -1,3 +1,4 @@
+// Este componente es el logo de la aplicacion
 function Logo () {
     return(
         <div style={{ textAlign: "center", marginTop: "40px" }}>

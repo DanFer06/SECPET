@@ -6,7 +6,6 @@ const router = Router();
 // Definición de rutas de la API
 
 //Obtener de Usuarios
-
 // Obtener todos los usuarios
 router.get('/usuarios', (req, res) => {
     db.query('SELECT * FROM usuarios', (err, results) => {
@@ -55,7 +54,6 @@ router.get('/usuarios/:idusuario', (req, res) => {
 
 // Crear un nuevo usuario
 router.post('/crearusuarios', (req, res) => {
-    console.log(req.body)
     const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
     db.query(`INSERT INTO usuarios SET 
         Cedula = '${Cedula}', 
@@ -77,7 +75,6 @@ router.post('/crearusuarios', (req, res) => {
 
 // Actualizar información de usuario
 router.put('/actualizarusuarios/:idusuario', (req, res) => {
-    // console.log(req.body)
     const itemId = req.params.idusuario;
     const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
     db.query(`UPDATE usuarios SET 
@@ -90,7 +87,6 @@ router.put('/actualizarusuarios/:idusuario', (req, res) => {
         idBodega = ${idBodega}, 
         idTipoUsuario = ${idTipoUsuario}
         WHERE idUsuario = ${itemId}`, (err, results) => {
-        //console.log(results)
         if (err) {
             console.error('Error al actualizar los datos:', err);
             res.status(500).json({ error: 'Error al actualizar los datos' });
@@ -127,8 +123,8 @@ router.delete('/eliminarusuarios/:idusuario', (req, res) => {
     });
 });
 
-//Obtener los reportes
 
+//Obtener de reportes
 //Obtener todos los reportes
 router.get('/reportematerial', (req, res) => {
     db.query('SELECT * FROM reportematerial', (err, results) => {
@@ -172,7 +168,6 @@ router.get('/reportematerial/:idReporte', (req, res) => {
             res.status(404).json({ message: 'Dato no encontrado' });
             return;
         }
-        console.log(results)
         res.status(200).json(results[0]);
     });
 });
@@ -196,7 +191,6 @@ router.get('/obtenermaterial/:idReporte', (req, res) => {
 
 //Enviar reporte
 router.post('/enviarreporte', (req, res) => {
-    // console.log(req.body)
     const { NumOT, FechaReporte, idUsuario, FechaCierreOT } = req.body;
     db.query(`INSERT INTO reportematerial SET 
         NumOT = '${NumOT}', 
@@ -223,10 +217,10 @@ router.post('/material/:idReporte', (req, res) => {
         return res.status(400).json({ error: 'Se esperaba un arreglo de materiales' });
     }
 
-    let insertCount = 0;
-    let errorOccurred = false;
+    let insertCount = 0; // Contador para llevar el registro de inserciones exitosas
+    let errorOccurred = false; // Variable para rastrear si ocurrió un error en alguna inserción
 
-    // Iterar sobre cada material y realizar la inserción
+    // Iteramos sobre cada material y realizamos la inserción
     materiales.forEach(material => {
         const { cantMaterial, codigoMaterial } = material;
 

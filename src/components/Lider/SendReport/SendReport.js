@@ -1,7 +1,7 @@
 import "./SendReport.css"
 import Header from "../../Header/Header";
 import api from "../../../axiosConfig";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Footer/Footer";
 
@@ -12,6 +12,7 @@ function SendReport() {
     const navigate = useNavigate();
     const [message, actualizarmessage] = useState("");
 
+    // Función para validar los datos ingresados
     const validarDatos = async () => {
         if (NumOT === "") {
             actualizarmessage("Por favor ingrese el número de orden de trabajo");
@@ -19,17 +20,18 @@ function SendReport() {
             actualizarmessage("Por favor ingrese la fecha de cierre de la orden de trabajo");
         } 
         
-        const fecha = new Date();
+        // Obtener la fecha y hora actual
+        const fecha = new Date(); 
+        // Formatear la fecha y hora actual
         const horas = fecha.getHours().toString().padStart(2, '0');
         const minutos = fecha.getMinutes().toString().padStart(2, '0');
         const dia = fecha.getDate().toString().padStart(2, '0');
         const mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
         const anio = fecha.getFullYear();
 
-        const horaActual = (`${anio}-${mes}-${dia} ${horas}:${minutos}`);
-        console.log("Hora actual:", horaActual);
+        const horaActual = (`${anio}-${mes}-${dia} ${horas}:${minutos}`); // Formato: YYYY-MM-DD HH:mm
         
-        
+        // confirmación para enviar el reporte
         if (window.confirm("¿Está seguro de que desea enviar el reporte?")) {
             const response = await api.post("/enviarreporte", {
                 NumOT: NumOT,
@@ -38,10 +40,11 @@ function SendReport() {
                 FechaCierreOT: FechaCierreOT
             });
 
-            if (response.status === 201) {
+            // Manejo de la respuesta del servidor
+            if (response.status === 201) { // Si el reporte se creó correctamente
                 const { message, insertId } = response.data;
-                const reporteCreadoId = insertId;
-                console.log(message, "ID del reporte creado:", reporteCreadoId);
+                const reporteCreadoId = insertId; // Obtenemos el ID del reporte creado
+                console.log(message, reporteCreadoId);
 
                 navigate(`/SendReportMaterial/${reporteCreadoId}`);
             }

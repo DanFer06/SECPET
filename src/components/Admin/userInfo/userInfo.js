@@ -7,11 +7,11 @@ import Footer from "../../Footer/Footer";
 
 
 function UserInfo() {
-    const { idUsuario } = useParams();
-
+    const { idUsuario } = useParams(); // Obtiene el id del usuario desde la URL
     const [usuario, actualizarUsuario] = useState({});
 
     useEffect(() => {
+        // Función para obtener la información del usuario
         const obtenerUsuario = async () => {
             try {
                 const response = await api.get(`/usuarios/${idUsuario}`);
@@ -23,6 +23,7 @@ function UserInfo() {
         };
         obtenerUsuario();
     }, [idUsuario]);
+    
     return (
         <div style={{ marginBottom: "100px" }}>
             <Header text="Información del Usuario" volver={"/Users"}></Header>

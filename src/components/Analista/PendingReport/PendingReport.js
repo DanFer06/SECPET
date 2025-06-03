@@ -9,15 +9,16 @@ function PendingReport () {
     const [Reportes, actualizarReporte] = useState([]);
 
     useEffect(() => {
+        // Función para obtener todos reportes
         const obtenerReportes = async() => {
             try {
                 const response = await api.get("/reportematerial");
+                // Filtrar los reportes que no han sido aprobados
                 const reportesPendientes = response.data.filter(reporte =>
-                    reporte.Aprobacion === null
+                    reporte.Aprobacion === null // Donde Aprobacion es null
                 );
 
                 actualizarReporte(reportesPendientes);
-                console.log(reportesPendientes);
             } catch (error) {
                 console.log(error);
             }
@@ -31,7 +32,7 @@ function PendingReport () {
                 Reportes.map((Report) =>
                     <Reporte Reporte={Report} key={Report.id}></Reporte>
                 )
-            ) : (
+            ) : ( // Si no hay reportes pendientes
                 <h2 style={{ textAlign: "center", marginTop: "70px" }}>No se encontraron reportes para mostrar.</h2>
             )}
             <Footer></Footer>

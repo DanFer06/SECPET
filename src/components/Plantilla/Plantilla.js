@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import "./Plantilla.css"
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "../Logo/Logo.js"
 import Footer from "../Footer/Footer.js";
 
 // Esta es una plantilla que se utilizará en la página principal para todos los usuarios
-//La función recibe el nombre y los botones dependiendo del usuario
-
 function Plantilla() {
     const navigate = useNavigate();
     const [usuario, actualizarUsuario] = useState({});
@@ -19,15 +17,15 @@ function Plantilla() {
                 try {
                     const usuarioData = localStorage.getItem("usuario");
                     if (!usuarioData) {
-                        navigate("/");
+                        navigate("/"); // Si no hay usuario en localStorage, redirigir a la página de inicio
                         return;
                     }
                     else {
                         const data = JSON.parse(usuarioData);
                         actualizarUsuario(data);
+                        // Actualizar los botones según el tipo de usuario
                         if (data.idTipoUsuario === 1) {
                             // Es un administrador
-                            console.log("Es admin")
                             actualizarBotones([
                                 {
                                     imagen: "/Iconos/usuarios.png",
@@ -58,7 +56,7 @@ function Plantilla() {
                                     ruta: "/SendReport"
                                 },
                                 {
-                                    imagen: "Iconos/duplicar.png",
+                                    imagen: "/Iconos/duplicar.png",
                                     texto: "Visualizar reportes",
                                     ruta: "/ReportsVerified"
                                 }
@@ -76,12 +74,14 @@ function Plantilla() {
         }, []
     );
 
+    // Función para cerrar sesión
     const salir = () => {
         if (window.confirm("¿Estás seguro de que deseas cerrar sesión?")) {
             localStorage.removeItem("usuario");
             navigate("/");
         }
     }
+    // Función para redirigir a la ruta correspondiente al botón presionado
     const redirigir = (ruta) => {
         navigate(ruta);
     }

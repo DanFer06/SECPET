@@ -10,13 +10,14 @@ import Footer from "../Footer/Footer";
 function ViewReporte() {
     const [comentario, actualizarComentario] = useState("");
     const { idReporte } = useParams()
-    console.log(idReporte)
     const navigate = useNavigate()
     const [reporte, actualizarReporte] = useState({});
     const [usuario, actualizarUsuario] = useState({});
     const [materiales, actualizarMaterial] = useState([]);
     const data = JSON.parse(localStorage.getItem("usuario"));
 
+    // Obtnemos toda la información del reporte, el usuario que lo reportó y los materiales asociados al reporte
+    // Se utiliza useEffect para hacer la llamada a la API cuando el componente se monta
     useEffect(() => {
         const obtenerReporte = async () => {
             try {
@@ -25,8 +26,6 @@ function ViewReporte() {
 
                 actualizarReporte(response.data);
                 actualizarUsuario(response2.data);
-                console.log(response.data);
-                console.log(response2.data);
             } catch (error) {
                 console.log(error);
             }
@@ -36,34 +35,34 @@ function ViewReporte() {
                 const response3 = await api.get(`/obtenermaterial/${idReporte}`);
 
                 actualizarMaterial(response3.data);
-                console.log(response3.data);
             } catch (error) {
                 console.log(error);
             }
         }
         obtenerReporte();
         obtenerMaterial();
-    }, []);
+    }, []); // Dependencias vacías para que se ejecute solo una vez al montar el componente
 
+    // función para formatear la fecha en un formato legible
     const formatearFecha = (fecha) => {
         if (!fecha) return "fecha no disponible";
         const date = new Date(fecha);
 
-        const opciones = { 
-            year: 'numeric', 
-            month: '2-digit', 
-            day: '2-digit', 
-            hour: '2-digit', 
+        const opciones = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
             minute: '2-digit',
             hour12: true
         };
 
+        // Formatear la fecha en el formato "dd/mm/yyyy hh:mm AM/PM"
         return new Intl.DateTimeFormat('es-CO', opciones).format(date);
     };
 
-    console.log(reporte)
-
-    let ruta = "/"
+    // Determinar la ruta a la cual se devuelve dependiendo del estado de aprobación del reporte y el tipo de usuario
+    let ruta = "/";
     if (reporte.Aprobacion === null) {
         ruta = "/PendingReport"
     } else if (data.idTipoUsuario === 2) {
@@ -73,12 +72,12 @@ function ViewReporte() {
     }
 
 
+    // Función para validar y enviar la solicitud de aprobación o rechazo del reporte
     const aprobacion = async (valor) => {
         if (comentario === "") {
             alert("Por favor ingrese un comentario");
             return
         }
-        console.log(valor);
         if (window.confirm(`¿Está seguro de ${valor} este reporte?`)) {
             // Si el usuario confirma, se procede a enviar la solicitud de aprobación o rechazo
             await api.patch(`/aprobar/${idReporte}`, { valor, comentario });
@@ -123,7 +122,7 @@ function ViewReporte() {
                     </table>
 
                 </div>
-                {reporte.Aprobacion === null ? (
+                {reporte.Aprobacion === null ? ( // Si el reporte no ha sido aprobado o rechazado, se muestra el formulario para agregar un comentario y aprobar o rechazar
                     <div>
                         <h3>Agregar comentario:</h3>
                         <textarea id="comentario" value={comentario} onChange={(e) => actualizarComentario(e.target.value)}></textarea>
@@ -132,7 +131,7 @@ function ViewReporte() {
                             <button id="rechazado" onClick={() => aprobacion("No aprobado")}>Rechazar</button>
                         </div>
                     </div>
-                ) : reporte.Aprobacion === "Aprobado" ? (
+                ) : reporte.Aprobacion === "Aprobado" ? ( // Si el reporte ha sido aprobado/rechazado, se muestra el comentario del analista y el estado de aprobación
                     <div>
                         <div>
                             <h3>Comentario del Analista:</h3>

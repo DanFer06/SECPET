@@ -45,6 +45,7 @@ function ModifyUser() {
         cargarDatosUsuario();
     }, [idUsuario]);
 
+    // Función para alternar la visibilidad de la contraseña
     const alternarVisibilidadContraseña = (numero) => {
         if (numero === "1") {
             actualizarMostrarContraseña(!mostrarContraseña);
@@ -53,6 +54,7 @@ function ModifyUser() {
         }
     };
 
+    // Función para actualizar el valor agregado al campo Numero de cuadrilla o bodega en caso de un cambio en el tipo de usuario
     const cambioTipoUsuario = (e) => {
         const valor = e.target.value;
         actualizarTipoUsuario(valor);
@@ -63,6 +65,7 @@ function ModifyUser() {
         }
     }
 
+    // Función para validar los campos del formulario antes de continuar
     const validarCampos = () => {
         if (!tipoUsuario || !nombre || !apellido || !cedula || !email) {
             actualizarMensajeError("Por favor, complete todos los campos.");
@@ -85,8 +88,8 @@ function ModifyUser() {
                 apellido,
                 cedula,
                 email,
-                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : 0,
-                numeroBodega: tipoUsuario === "2" ? numeroBodega : 0
+                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : 0, // Asignar 0 si no es Lider de cuadrilla
+                numeroBodega: tipoUsuario === "2" ? numeroBodega : 0 // Asignar 0 si no es Analista de inventario
             });
 
             actualizarMostrarSiguiente(true);
@@ -95,6 +98,7 @@ function ModifyUser() {
         return true;
     }
 
+    // Función para validar la contraseña y confirmar antes de enviar la solicitud de actualización
     const validarContraseña = async () => {
         if (contraseña === '') {
             actualizarMessage("Por favor ingrese la contraseña")
@@ -131,7 +135,7 @@ function ModifyUser() {
     return(
         <div style={{ marginBottom: "100px" }}>
                 <Header text={"Modificar usuario"} volver={"/Users"}></Header>
-                {!mostrarSiguiente ? (
+                {!mostrarSiguiente ? ( // Mostrar el formulario inicial
                     <div>
                         <div className="formulario">
                             <select name="Tipo de usuario" id="usuarios" value={tipoUsuario} onChange={cambioTipoUsuario}>
@@ -164,7 +168,7 @@ function ModifyUser() {
                             <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
                         </button>
                     </div>
-                ) : (
+                ) : ( // Mostrar el formulario de contraseña
                     <div>
                         <div className="formulario2">
                             <div className="contenedorContraseña">

@@ -1,5 +1,5 @@
 import "./SendReportMaterial.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../../../axiosConfig";
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para obtener el ID de la URL
 import Footer from "../../Footer/Footer";
@@ -10,11 +10,14 @@ function SendReportMaterial() {
     const { idReporte } = useParams();
     const navigate = useNavigate();
 
+    // Estado para almacenar los materiales
+    // Inicializamos con un objeto vacío para permitir agregar al menos una fila
     const [materiales, actualizarMaterial] = useState([{ codigoMaterial: "", cantMaterial: "" }]);
 
+    // Función para manejar el cambio en los campos de material
     const cambioMaterial = (index, event) => {
         const { name, value } = event.target;
-        const nuevosMateriales = [...materiales];
+        const nuevosMateriales = [...materiales]; // Hacemos una copia del estado actual de materiales
         nuevosMateriales[index] = {
             ...nuevosMateriales[index],
             [name]: value
@@ -22,28 +25,29 @@ function SendReportMaterial() {
         actualizarMaterial(nuevosMateriales);
     };
 
+    // Función para agregar una nueva fila de material
     const agregarMaterial = () => {
         actualizarMaterial([...materiales, { codigoMaterial: "", cantMaterial: "" }]);
     };
 
     const enviarMaterial = async () => {
         // Validación de campos vacíos
+        // Filtrar materiales que tienen al menos un campo lleno
         const materialParaEnviar = materiales.filter(
             (mat) => mat.codigoMaterial.trim() !== "" || mat.cantMaterial.trim() !== ""
-        ).map(materiales => ({
+        ).map(materiales => ({ // Mapeamos para enviar solo los campos necesarios
             codigoMaterial: materiales.codigoMaterial.trim(),
             cantMaterial: materiales.cantMaterial.trim()
         })
         );
 
-        console.log("Materiales a enviar:", materialParaEnviar);
-
-        // 2. Validar si hay campos llenos a medias
+        // Validar si hay campos llenos a medias
         let camposVacios = false;
         for (const mat of materialParaEnviar) { // Iteramos sobre los que no están completamente vacíos
             const codigoVacio = mat.codigoMaterial.trim() === "";
             const cantidadVacia = mat.cantMaterial.trim() === "";
 
+            // Si hay un código pero no cantidad, o cantidad pero no código, marcamos como camposVacios
             if ((!codigoVacio && cantidadVacia) || (codigoVacio && !cantidadVacia)) {
                 camposVacios = true;
                 break;
@@ -66,10 +70,11 @@ function SendReportMaterial() {
         }
 
 
+        // Confirmación antes de enviar el material
         if (window.confirm(`¿Está seguro de que desea enviar el material del reporte No.${idReporte}?`)) {
             try {
                 await api.post(`/Material/${idReporte}`, {
-                    materiales: materialParaEnviar.map(material => ({
+                    materiales: materialParaEnviar.map(material => ({ // Mapeamos para enviar solo los campos necesarios
                         codigoMaterial: material.codigoMaterial,
                         cantMaterial: material.cantMaterial
                     }))
@@ -90,7 +95,7 @@ function SendReportMaterial() {
                     <h3>Código de material</h3>
                     <h3>Cantidad</h3>
                 </div>
-                {materiales.map((material, index) => (
+                {materiales.map((material, index) => ( // Mapeamos los materiales para crear una fila por cada uno
                     <div className="enviarMaterial" key={index}>
                         <input
                             type="text"

@@ -1,4 +1,9 @@
 footer {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     text-align: center;
     background-color: aliceblue;
     margin: 0 auto 0 auto;
@@ -9,12 +14,4 @@ footer p {
     padding: 5px;
     font-size: 14px;
     color: #333;
-}
-/* Hacer que el footer aparezca siempre en la parte inferior */
-footer {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    bottom: 0;
-    width: 100%;
 }

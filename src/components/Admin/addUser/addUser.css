@@ -1,3 +1,4 @@
+/* Formulario de agregar usuario */
 .formulario {
     max-width: 700px;
     margin: 5px auto;
@@ -83,29 +84,28 @@
     margin-left: 10px;
 }
 
+/* Estilos para el contenedor de contraseña */
 .contenedorContraseña {
-  position: relative; /* Es el punto de referencia para el icono posicionado absolutamente */
-  display: flex; /* Para que el input y el icono estén en la misma línea */
-  align-items: center; /* Alinea verticalmente el input y el icono */
-  margin-bottom: 15px; /* Espacio entre el campo y el siguiente elemento */
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 15px; 
 }
 
 .contenedorContraseña input {
-  /* Estilos para tu input, por ejemplo: */
   padding: 10px;
-  padding-right: 40px; /* Deja espacio para el icono dentro del input */
+  padding-right: 40px; 
   border: 1px solid #ccc;
   border-radius: 4px;
-  flex-grow: 1; /* Permite que el input ocupe el espacio disponible */
+  flex-grow: 1; 
 }
 
 .toggle-password {
-  position: absolute; /* Posiciona el icono absolutamente dentro del contenedor */
+  position: absolute; 
   right: 10px; 
   margin-bottom: 20px;
-  /* Si el icono es un SVG o tienes una fuente de iconos, puedes usar color y font-size aquí */
 }
 
 .toggle-password img {
-  display: block; /* Elimina espacio extra que algunos navegadores añaden a las imágenes */
+  display: block; 
 }

@@ -1,4 +1,5 @@
 import './App.css';
+// Importación de componentes necesarios para las rutas
 import AddUser from './components/Admin/addUser/addUser';
 import Users from './components/Admin/Users/Users';
 import PendingReport from './components/Analista/PendingReport/PendingReport';
@@ -7,7 +8,7 @@ import ReportsVerified from './components/Lider/ReportsVerified/ReportsVerified'
 import SendReport from './components/Lider/SendReport/SendReport';
 import Login from './components/Login';
 import Plantilla from './components/Plantilla/Plantilla';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importación de react-router-dom para manejar las rutas
 import ViewReporte from './components/ViewReporte/ViewReporte';
 import SendReportMaterial from './components/Lider/SendReportMaterial/SendReportMaterial';
 import ModifyUser from './components/Admin/modifyUser/modifyUser';

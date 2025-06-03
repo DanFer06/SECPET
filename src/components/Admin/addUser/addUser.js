@@ -1,13 +1,15 @@
 import Header from "../../Header/Header";
 import { useState } from "react";
 import api from "../../../axiosConfig";
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para redirigir después de agregar el usuario
+import { useNavigate } from 'react-router-dom'; 
 import "./addUser.css";
 import Footer from "../../Footer/Footer";
+
 //Formulario para añadir a un nuevo usuario
 function AddUser() {
     const navigate = useNavigate();
     const [mostrarContraseña, actualizarMostrarContraseña] = useState(false);
+    const [mostrarContraseña2, actualizarMostrarContraseña2] = useState(false);
     const [mostrarSiguiente, actualizarMostrarSiguiente] = useState(false);
     const [usuarioForm, actualizarUsuarioForm] = useState({});
     const [tipoUsuario, actualizarTipoUsuario] = useState('');
@@ -21,8 +23,8 @@ function AddUser() {
     const [contraseña, actualizarContraseña] = useState('');
     const [confirmContraseña, actualizarConfirm] = useState('');
     const [message, actualizarMessage] = useState('');
-    const [mostrarContraseña2, actualizarMostrarContraseña2] = useState(false);
 
+    // Función para eliminar el valor agregado al campo Numero de cuadrilla o bodega en caso de un cambio en el tipo de usuario
     const cambioTipoUsuario = (e) => {
         const valor = e.target.value;
         actualizarTipoUsuario(valor);
@@ -33,6 +35,7 @@ function AddUser() {
         }
     }
 
+    // Función para alternar la visibilidad de la contraseña
     const alternarVisibilidadContraseña = (numero) => {
         if (numero === "1") {
             actualizarMostrarContraseña(!mostrarContraseña);
@@ -41,6 +44,7 @@ function AddUser() {
         }
     };
 
+    // Función para validar los campos del formulario antes de continuar
     const validarCampos = () => {
         if (!tipoUsuario || !nombre || !apellido || !cedula || !email) {
             actualizarMensajeError("Por favor, complete todos los campos.");
@@ -63,8 +67,8 @@ function AddUser() {
                 apellido,
                 cedula,
                 email,
-                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : 0,
-                numeroBodega: tipoUsuario === "2" ? numeroBodega : 0
+                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : 0, // Asignar 0 si no es Lider
+                numeroBodega: tipoUsuario === "2" ? numeroBodega : 0 // Asignar 0 si no es Analista de inventario
             });
 
             actualizarMostrarSiguiente(true);
@@ -73,15 +77,13 @@ function AddUser() {
         return true;
     }
 
+    // Función para validar la contraseña y confirmar si se desea agregar el usuario
     const validarContraseña = async () => {
-        console.log("Idbodega:", usuarioForm.numeroBodega);
-        console.log("Idcuadrilla:", usuarioForm.numeroCuadrilla);
         if (contraseña === '') {
             actualizarMessage("Por favor ingrese la contraseña")
         } else if (confirmContraseña === '') {
-            actualizarMessage("Por favor la confirmación de la constraseña")
-        }
-        else if (contraseña !== confirmContraseña) {
+            actualizarMessage("Por favor ingrese la confirmación de la contraseña")
+        } else if (contraseña !== confirmContraseña) {
             actualizarMessage("Las contraseñas no coinciden");
         } else if (window.confirm("¿Está seguro de que desea agregar el usuario?")) {
             // Agregar la contraseña al objeto usuarioForm
@@ -110,7 +112,8 @@ function AddUser() {
     return (
         <div style={{ marginBottom: "100px" }}>
             <Header text={"Crear nuevo usuario"} volver={"/Users"}></Header>
-            {!mostrarSiguiente ? (
+            
+            {!mostrarSiguiente ? ( // Mostrar el formulario inicial para ingresar los datos del usuario
                 <div>
                     <div className="formulario">
                         <select name="Tipo de usuario" id="usuarios" value={tipoUsuario} onChange={cambioTipoUsuario}>
@@ -143,13 +146,13 @@ function AddUser() {
                         <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
                     </button>
                 </div>
-            ) : (
+            ) : ( // Mostrar el formulario para ingresar la contraseña y confirmación
                 <div>
                     <div className="formulario2">
                         <div className="contenedorContraseña">
                             <input value={contraseña} type={mostrarContraseña ? "text" : "password"} placeholder="Ingrese la contraseña" onChange={(e) => actualizarContraseña(e.target.value)}></input>
                             <span className="toggle-password"
-                                onClick={() => alternarVisibilidadContraseña("1")}>
+                                onClick={() => alternarVisibilidadContraseña("1")}> 
                                 <img
                                     src={mostrarContraseña ? "/iconos/ojos-cruzados.png" : "/iconos/ojo.png"}
                                     alt={mostrarContraseña ? "Ocultar contraseña" : "Mostrar contraseña"}
