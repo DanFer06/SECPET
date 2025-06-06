@@ -88,8 +88,8 @@ function ModifyUser() {
                 apellido,
                 cedula,
                 email,
-                numeroCuadrilla: tipoUsuario === "3" ? numeroCuadrilla : 0, // Asignar 0 si no es Lider de cuadrilla
-                numeroBodega: tipoUsuario === "2" ? numeroBodega : 0 // Asignar 0 si no es Analista de inventario
+                numeroCuadrilla: tipoUsuario === "3" || tipoUsuario === 3 ? numeroCuadrilla : 0, // Asignar 0 si no es Lider de cuadrilla
+                numeroBodega: tipoUsuario === "2" || tipoUsuario === 2 ? numeroBodega : 0 // Asignar 0 si no es Analista de inventario
             });
 
             actualizarMostrarSiguiente(true);

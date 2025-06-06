@@ -10,7 +10,6 @@ function Users () {
         const obtenerUsuarios = async() => {
             try {
                 const response = await api.get("/usuarios");
-                console.log(response.data)
                 actualizarUsuarios(response.data);
             } catch (error) {
                 console.log(error);

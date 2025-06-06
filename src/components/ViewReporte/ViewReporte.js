@@ -78,7 +78,7 @@ function ViewReporte() {
             alert("Por favor ingrese un comentario");
             return
         }
-        if (window.confirm(`¿Está seguro de ${valor} este reporte?`)) {
+        if (window.confirm(`¿Está seguro de marcar este reporte como ${valor}?`)) {
             // Si el usuario confirma, se procede a enviar la solicitud de aprobación o rechazo
             await api.patch(`/aprobar/${idReporte}`, { valor, comentario });
             navigate("/PendingReport");
