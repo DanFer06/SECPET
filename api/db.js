@@ -1,15 +1,17 @@
 import mysql from "mysql2";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Configuración de la conexión a la base de datos MySQL
 
 export const db = mysql.createConnection({
-    host: 'reportes-ceballoscoraldanielfernando-c5ad.l.aivencloud.com',
-    port: 15496,
-    user: 'avnadmin',
-    password: '',
-    database: 'reportematerial',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 });
-
 
 
 db.connect((err) => {
