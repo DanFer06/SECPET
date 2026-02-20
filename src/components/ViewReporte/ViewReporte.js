@@ -43,7 +43,7 @@ function ViewReporte() {
         }
         obtenerReporte();
         obtenerMaterial();
-    }, []); // Dependencias vacías para que se ejecute solo una vez al montar el componente
+    }, [idReporte]);
 
 
 

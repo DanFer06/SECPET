@@ -20,7 +20,7 @@ function Login() {
         if (usuarioData) {
             navigate("/inicio");
         }
-    }, []);
+    }, [navigate]);
 
     const validarDatos = () => {
         if (Cedula === "") {

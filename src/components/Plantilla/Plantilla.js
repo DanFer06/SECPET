@@ -71,7 +71,7 @@ function Plantilla() {
             obtenerUsuario();
 
 
-        }, []
+        }, [navigate]
     );
 
     // Función para cerrar sesión
