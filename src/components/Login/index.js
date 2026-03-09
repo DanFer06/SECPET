@@ -36,6 +36,7 @@ function Login() {
             api.get(`/usuario/${Cedula}`)
                 .then(response => {
                     //verificar si se obtuvo una respuesta de la API
+                    console.log(response)
                     if (!response.data) {
                         Actualizarmensaje("El servidor no ha respondido con datos")
                     } else {

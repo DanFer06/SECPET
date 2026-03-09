@@ -2,7 +2,7 @@
 function Logo () {
     return(
         <div style={{ textAlign: "center", marginTop: "40px" }}>
-            <img src="/img/SECPET-logo.png" alt="logo SECPET"></img>
+            <img src="/img/SECPET-Logo.png" alt="logo SECPET"></img>
         </div>
     );
 }
