@@ -39,6 +39,7 @@ function Login() {
                     if (!response.data) {
                         Actualizarmensaje("El servidor no ha respondido con datos")
                     } else {
+                        console.log("Respuesta de la API: ", response.data)
                         // Verificar el tipo de usuario
                         if (Number(response.data.idTipoUsuario) !== Number(TipoUsuario)) {
                             Actualizarmensaje("El tipo de usuario es incorrecto")
