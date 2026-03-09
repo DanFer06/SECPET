@@ -62,7 +62,7 @@ function SendReport() {
             <h4 id="mensaje">{message}</h4>
             <button id="botonSiguiente" onClick={() => { validarDatos(); }}>
                 <span>Siguiente</span>
-                <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
+                <img src="/Iconos/flecha-pequena-derecha.png" alt="icono"></img>
             </button>
             <Footer></Footer>
         </div>

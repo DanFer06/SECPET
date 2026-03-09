@@ -87,7 +87,7 @@ function User({ usuario }) {
                 <p>{TipoUsuario}</p>
                 <div className="botonMenu">
                     <img
-                        src="iconos/menu-puntos-vertical.png"
+                        src="Iconos/menu-puntos-vertical.png"
                         alt="Menú"
                         onClick={toggleMenu}
                         ref={botonRef}>

@@ -32,7 +32,7 @@ function UserInfo() {
             <div className="userInfo">
                 {loading ? (<p>Cargando información de usuario...</p>) : (
                     <div>
-                        <img src="/iconos/User.png" alt="Usuario"></img>
+                        <img src="/Iconos/User.png" alt="Usuario"></img>
                         <p><b>Tipo de Usuario:</b> {usuario.idTipoUsuario === 1 ? "Administrador" : usuario.idTipoUsuario === 2 ? "Analista de Inventario" : "Lider de Cuadrilla"}</p>
                         <p><b>Nombre completo:</b> {usuario.Nombre} {usuario.Apellido}</p>
                         <p><b>Cédula:</b> {usuario.Cedula}</p>

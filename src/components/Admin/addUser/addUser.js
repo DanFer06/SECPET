@@ -143,7 +143,7 @@ function AddUser() {
                     }>{mensajeError}</p>}
                     <button id="boton" onClick={() => { validarCampos() }}>
                         <span>Siguiente</span>
-                        <img src="/iconos/flecha-pequena-derecha.png" alt="icono"></img>
+                        <img src="/Iconos/flecha-pequena-derecha.png" alt="icono"></img>
                     </button>
                 </div>
             ) : ( // Mostrar el formulario para ingresar la contraseña y confirmación
@@ -154,7 +154,7 @@ function AddUser() {
                             <span className="toggle-password"
                                 onClick={() => alternarVisibilidadContraseña("1")}> 
                                 <img
-                                    src={mostrarContraseña ? "/iconos/ojos-cruzados.png" : "/iconos/ojo.png"}
+                                    src={mostrarContraseña ? "/Iconos/ojos-cruzados.png" : "/Iconos/ojo.png"}
                                     alt={mostrarContraseña ? "Ocultar contraseña" : "Mostrar contraseña"}
                                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
                                 />
@@ -166,7 +166,7 @@ function AddUser() {
                             <span className="toggle-password"
                                 onClick={() => alternarVisibilidadContraseña("2")}>
                                 <img
-                                    src={mostrarContraseña2 ? "/iconos/ojos-cruzados.png" : "/iconos/ojo.png"}
+                                    src={mostrarContraseña2 ? "/Iconos/ojos-cruzados.png" : "/Iconos/ojo.png"}
                                     alt={mostrarContraseña2 ? "Ocultar contraseña" : "Mostrar contraseña"}
                                     style={{ width: '24px', height: '24px', cursor: 'pointer' }}
                                 />
@@ -181,7 +181,7 @@ function AddUser() {
                     }}>{message}</p>}
                     <button id="botonAgregarUsuario" onClick={() => { validarContraseña() }}>
                         <span>Agregar usuario</span>
-                        <img src="/iconos/agregar-usuario.png" alt="icono"></img>
+                        <img src="/Iconos/agregar-usuario.png" alt="icono"></img>
                     </button>
                 </div>
             )}

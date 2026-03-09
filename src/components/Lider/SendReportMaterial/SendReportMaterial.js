@@ -113,12 +113,12 @@ function SendReportMaterial() {
                 ))}
             </div>
             <button id="agregarMaterial" onClick={agregarMaterial}>
-                <img src="/iconos/agregar.png" alt="agregar material"></img>
+                <img src="/Iconos/agregar.png" alt="agregar material"></img>
             </button>
 
             <button id="botonEnviar" onClick={enviarMaterial}>
                 <span>Enviar</span>
-                <img src="/iconos/agregar-documento.png" alt="icono"></img>
+                <img src="/Iconos/agregar-documento.png" alt="icono"></img>
             </button>
             <Footer></Footer>
         </div>
