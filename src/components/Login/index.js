@@ -42,6 +42,8 @@ function Login() {
                         console.log("Respuesta de la API: ", response.data)
                         // Verificar el tipo de usuario
                         if (Number(response.data.idTipoUsuario) !== Number(TipoUsuario)) {
+                            console.log("Tipo de usuario esperado: ", TipoUsuario)
+                            console.log("Tipo de usuario recibido: ", response.data.idTipoUsuario)
                             Actualizarmensaje("El tipo de usuario es incorrecto")
                         }
                         // Verificar la contraseña
