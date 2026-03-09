@@ -1,215 +1,200 @@
 import { Router } from "express";
 import { db } from "../db.js";
+import util from 'util';
 
+const query = util.promisify(db.query).bind(db);
 const router = Router();
 
 // Definición de rutas de la API
 
 //Obtener de Usuarios
 // Obtener todos los usuarios
-router.get('/usuarios', (req, res) => {
-    db.query('SELECT * FROM usuarios', (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener los datos' });
-            return;
-        }
+router.get('/usuarios', async (req, res) => {
+    try {
+        const results = await query('SELECT * FROM usuarios');
         res.status(200).json(results);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener los datos' });
+    }
 });
 
-//Obtener usuario por cedula
-router.get('/usuario/:Cedula', (req, res) => {
+// Obtener usuario por cedula
+router.get('/usuario/:Cedula', async (req, res) => {
     const itemId = req.params.Cedula;
-    db.query('SELECT * FROM usuarios WHERE Cedula = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener el dato' });
-            return;
-        }
+    try {
+        const results = await query('SELECT * FROM usuarios WHERE Cedula = ?', [itemId]);
         if (results.length === 0) {
-            res.status(404).json({ message: 'Dato no encontrado' });
-            return;
+            return res.status(404).json({ message: 'Dato no encontrado' });
         }
         res.status(200).json(results[0]);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener el dato' });
+    }
 });
 
 // Obtener usuario por id
-router.get('/usuarios/:idusuario', (req, res) => {
+router.get('/usuarios/:idusuario', async (req, res) => {
     const itemId = req.params.idusuario;
-    db.query('SELECT * FROM usuarios WHERE idUsuario = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener el dato' });
-            return;
-        }
+    try {
+        const results = await query('SELECT * FROM usuarios WHERE idUsuario = ?', [itemId]);
         if (results.length === 0) {
-            res.status(404).json({ message: 'Dato no encontrado' });
-            return;
+            return res.status(404).json({ message: 'Dato no encontrado' });
         }
         res.status(200).json(results[0]);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener el dato' });
+    }
 });
 
 // Crear un nuevo usuario
-router.post('/crearusuarios', (req, res) => {
+router.post('/crearusuarios', async (req, res) => {
     const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
-    db.query(`INSERT INTO usuarios SET 
-        Cedula = '${Cedula}', 
-        Nombre = '${Nombre}', 
-        Apellido = '${Apellido}', 
-        Password = '${Password}', 
-        Email = '${Email}', 
-        NumCuadrilla = '${NumCuadrilla}', 
-        idBodega = ${idBodega}, 
-        idTipoUsuario = ${idTipoUsuario}`, (err, results) => {
-        if (err) {
-            console.error('Error al insertar el dato:', err);
-            res.status(500).json({ error: 'Error al crear el dato' });
-            return;
-        }
+    try {
+        const sql = `INSERT INTO usuarios SET 
+            Cedula = '${Cedula}', 
+            Nombre = '${Nombre}', 
+            Apellido = '${Apellido}', 
+            Password = '${Password}', 
+            Email = '${Email}', 
+            NumCuadrilla = '${NumCuadrilla}', 
+            idBodega = ${idBodega}, 
+            idTipoUsuario = ${idTipoUsuario}`;
+        const results = await query(sql);
         res.status(201).json({ message: 'Dato creado exitosamente', insertId: results.insertId });
-    });
+    } catch (err) {
+        console.error('Error al insertar el dato:', err);
+        res.status(500).json({ error: 'Error al crear el dato' });
+    }
 });
 
 // Actualizar información de usuario
-router.put('/actualizarusuarios/:idusuario', (req, res) => {
+router.put('/actualizarusuarios/:idusuario', async (req, res) => {
     const itemId = req.params.idusuario;
     const { Cedula, Nombre, Apellido, Password, Email, NumCuadrilla, idBodega, idTipoUsuario } = req.body;
-    db.query(`UPDATE usuarios SET 
-        Cedula = '${Cedula}', 
-        Nombre = '${Nombre}', 
-        Apellido = '${Apellido}', 
-        Password = '${Password}', 
-        Email = '${Email}', 
-        NumCuadrilla = '${NumCuadrilla}', 
-        idBodega = ${idBodega}, 
-        idTipoUsuario = ${idTipoUsuario}
-        WHERE idUsuario = ${itemId}`, (err, results) => {
-        if (err) {
-            console.error('Error al actualizar los datos:', err);
-            res.status(500).json({ error: 'Error al actualizar los datos' });
-            return;
-        }
+    try {
+        const sql = `UPDATE usuarios SET 
+            Cedula = '${Cedula}', 
+            Nombre = '${Nombre}', 
+            Apellido = '${Apellido}', 
+            Password = '${Password}', 
+            Email = '${Email}', 
+            NumCuadrilla = '${NumCuadrilla}', 
+            idBodega = ${idBodega}, 
+            idTipoUsuario = ${idTipoUsuario}
+            WHERE idUsuario = ${itemId}`;
+        const results = await query(sql);
         if (results.affectedRows === 0) {
-            console.log('El usuario no existe')
-            res.status(404).json({ message: 'Usuario no encontrado' });
-            return;
+            console.log('El usuario no existe');
+            return res.status(404).json({ message: 'Usuario no encontrado' });
         }
         res.status(201).json({ message: 'Usuario actualizado exitosamente', Id: itemId });
-    });
+    } catch (err) {
+        console.error('Error al actualizar los datos:', err);
+        res.status(500).json({ error: 'Error al actualizar los datos' });
+    }
 });
 
-//Eliminar usuario
-router.delete('/eliminarusuarios/:idusuario', (req, res) => {
+// Eliminar usuario
+router.delete('/eliminarusuarios/:idusuario', async (req, res) => {
     const itemId = req.params.idusuario;
-    db.query('DELETE FROM usuarios WHERE idUsuario = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al eliminar el dato' });
-            return;
-        }
+    try {
+        const results = await query('DELETE FROM usuarios WHERE idUsuario = ?', [itemId]);
         if (results.affectedRows === 0) {
-            console.log('El usuario no existe')
-            res.status(404).json({ message: 'Dato no encontrado' });
-            return;
+            console.log('El usuario no existe');
+            return res.status(404).json({ message: 'Dato no encontrado' });
         }
         res.status(200).json({
-            body: {
-                message: 'El usuario fue eliminado satisfactoriamente'
-            }
+            body: { message: 'El usuario fue eliminado satisfactoriamente' }
         });
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al eliminar el dato' });
+    }
 });
 
 
 //Obtener de reportes
-//Obtener todos los reportes
-router.get('/reportematerial', (req, res) => {
-    db.query('SELECT * FROM reportematerial', (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener los datos' });
-            return;
-        }
+// Obtener todos los reportes
+router.get('/reportematerial', async (req, res) => {
+    try {
+        const results = await query('SELECT * FROM reportematerial');
         res.status(200).json(results);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener los datos' });
+    }
 });
 
-//Obtener reporte por id de usuario
-router.get('/reportematerial/usuario/:idUsuario', (req, res) => {
+// Obtener reporte por id de usuario
+router.get('/reportematerial/usuario/:idUsuario', async (req, res) => {
     const itemId = req.params.idUsuario;
-    db.query('SELECT * FROM reportematerial WHERE idUsuario = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener los datos' });
-            return;
-        }
+    try {
+        const results = await query('SELECT * FROM reportematerial WHERE idUsuario = ?', [itemId]);
         if (results.length === 0) {
-            res.status(404).json({ message: 'Reporte no encontrado' });
-            return;
+            return res.status(404).json({ message: 'Reporte no encontrado' });
         }
         res.status(200).json(results);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener los datos' });
+    }
 });
 
-//Obtener reporte mediante id
-router.get('/reportematerial/:idReporte', (req, res) => {
+// Obtener reporte mediante id
+router.get('/reportematerial/:idReporte', async (req, res) => {
     const itemId = req.params.idReporte;
-    db.query('SELECT * FROM reportematerial WHERE idReporte = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener el dato' });
-            return;
-        }
+    try {
+        const results = await query('SELECT * FROM reportematerial WHERE idReporte = ?', [itemId]);
         if (results.length === 0) {
-            console.log("Dato no encontrado")
-            res.status(404).json({ message: 'Dato no encontrado' });
-            return;
+            console.log("Dato no encontrado");
+            return res.status(404).json({ message: 'Dato no encontrado' });
         }
         res.status(200).json(results[0]);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener el dato' });
+    }
 });
 
-//Obtener material por el id del reporte
-router.get('/obtenermaterial/:idReporte', (req, res) => {
+// Obtener material por el id del reporte
+router.get('/obtenermaterial/:idReporte', async (req, res) => {
     const itemId = req.params.idReporte;
-    db.query('SELECT * FROM material WHERE idReporte = ?', [itemId], (err, results) => {
-        if (err) {
-            console.error('Error al consultar la base de datos:', err);
-            res.status(500).json({ error: 'Error al obtener los datos' });
-            return;
-        }
+    try {
+        const results = await query('SELECT * FROM material WHERE idReporte = ?', [itemId]);
         if (results.length === 0) {
-            res.status(404).json({ message: 'Reporte no encontrado' });
-            return;
+            return res.status(404).json({ message: 'Reporte no encontrado' });
         }
         res.status(200).json(results);
-    });
+    } catch (err) {
+        console.error('Error al consultar la base de datos:', err);
+        res.status(500).json({ error: 'Error al obtener los datos' });
+    }
 });
 
-//Enviar reporte
-router.post('/enviarreporte', (req, res) => {
+// Enviar reporte
+router.post('/enviarreporte', async (req, res) => {
     const { NumOT, FechaReporte, idUsuario, FechaCierreOT } = req.body;
-    db.query(`INSERT INTO reportematerial SET 
-        NumOT = '${NumOT}', 
-        FechaReporte = '${FechaReporte}', 
-        idUsuario = '${idUsuario}', 
-        FechaCierreOT = '${FechaCierreOT}'`, (err, results) => {
-        if (err) {
-            console.error('Error al insertar el dato:', err);
-            res.status(500).json({ error: 'Error al crear el dato' });
-            return;
-        }
+    try {
+        const sql = `INSERT INTO reportematerial SET 
+            NumOT = '${NumOT}', 
+            FechaReporte = '${FechaReporte}', 
+            idUsuario = '${idUsuario}', 
+            FechaCierreOT = '${FechaCierreOT}'`;
+        const results = await query(sql);
         res.status(201).json({ message: 'Dato creado exitosamente', insertId: results.insertId });
-    });
+    } catch (err) {
+        console.error('Error al insertar el dato:', err);
+        res.status(500).json({ error: 'Error al crear el dato' });
+    }
 });
 
-//Reportar Material
-router.post('/material/:idReporte', (req, res) => {
+// Reportar Material
+router.post('/material/:idReporte', async (req, res) => {
     const reporteId = req.params.idReporte;
-    console.log(req.body)
+    console.log(req.body);
     const { materiales } = req.body; // Desestructurar el arreglo de materiales del cuerpo de la solicitud
 
     // Validar que se haya proporcionado un arreglo de materiales
@@ -217,53 +202,44 @@ router.post('/material/:idReporte', (req, res) => {
         return res.status(400).json({ error: 'Se esperaba un arreglo de materiales' });
     }
 
-    let insertCount = 0; // Contador para llevar el registro de inserciones exitosas
-    let errorOccurred = false; // Variable para rastrear si ocurrió un error en alguna inserción
-
-    // Iteramos sobre cada material y realizamos la inserción
-    materiales.forEach(material => {
-        const { cantMaterial, codigoMaterial } = material;
-
-        db.query(`INSERT INTO material SET 
-            idReporte = '${reporteId}', 
-            CantMaterial = '${Number(cantMaterial)}', 
-            CodigoMaterial = '${codigoMaterial}'`, (err, results) => {
-            if (err) {
-                console.error('Error al insertar el dato:', err);
-                errorOccurred = true;
-                return res.status(500).json({ error: 'Error al crear el dato' });
-            }
+    try {
+        let insertCount = 0;
+        for (const material of materiales) {
+            const { cantMaterial, codigoMaterial } = material;
+            const sql = `INSERT INTO material SET 
+                idReporte = '${reporteId}', 
+                CantMaterial = '${Number(cantMaterial)}', 
+                CodigoMaterial = '${codigoMaterial}'`;
+            const results = await query(sql);
             insertCount++;
             console.log(`Material insertado: ${codigoMaterial}, Cantidad: ${cantMaterial}, ID: ${results.insertId}`);
-
-            if (insertCount === materiales.length && !errorOccurred) {
-                res.status(201).json({ message: 'Datos creados exitosamente', insertCount });
-            }
-        });
-    });
+        }
+        res.status(201).json({ message: 'Datos creados exitosamente', insertCount });
+    } catch (err) {
+        console.error('Error al insertar el dato:', err);
+        res.status(500).json({ error: 'Error al crear el dato' });
+    }
 });
 
 // Aprobar reporte
-router.patch('/aprobar/:idReporte', (req, res) => {
+router.patch('/aprobar/:idReporte', async (req, res) => {
     const itemId = req.params.idReporte;
-    const { valor } = req.body;
-    const { comentario } = req.body;
-    db.query(`UPDATE reportematerial SET 
-        Aprobacion = '${valor}',
-        Comentario = '${comentario}'
-        WHERE idReporte = ${itemId}`, (err, results) => {
-        if (err) {
-            console.error('Error al aprobar el reporte:', err);
-            res.status(500).json({ error: 'Error al aprobar el reporte' });
-            return;
-        }
+    const { valor, comentario } = req.body;
+    try {
+        const sql = `UPDATE reportematerial SET 
+            Aprobacion = '${valor}',
+            Comentario = '${comentario}'
+            WHERE idReporte = ${itemId}`;
+        const results = await query(sql);
         if (results.affectedRows === 0) {
-            console.log('El reporte no existe')
-            res.status(404).json({ message: 'Reporte no encontrado' });
-            return;
+            console.log('El reporte no existe');
+            return res.status(404).json({ message: 'Reporte no encontrado' });
         }
         res.status(201).json({ message: `Reporte ${valor} exitosamente`, Id: itemId });
-    });
+    } catch (err) {
+        console.error('Error al aprobar el reporte:', err);
+        res.status(500).json({ error: 'Error al aprobar el reporte' });
+    }
 });
 
 

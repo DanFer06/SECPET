@@ -1,4 +1,7 @@
 import mysql from "mysql2";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Configuración de la conexión a la base de datos MySQL
 

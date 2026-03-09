@@ -34,33 +34,36 @@ function Login() {
         }
         else {
             api.get(`/usuario/${Cedula}`)
-            .then(response => {
-                if (response.data) {
-                    // Verificar el tipo de usuario
-                    if (Number(response.data.idTipoUsuario) !== Number(TipoUsuario)) {
-                        Actualizarmensaje("El tipo de usuario es incorrecto")
+                .then(response => {
+                    //verificar si se obtuvo una respuesta de la API
+                    if (!response.data) {
+                        Actualizarmensaje("El servidor no ha respondido con datos")
+                    } else {
+                        // Verificar el tipo de usuario
+                        if (Number(response.data.idTipoUsuario) !== Number(TipoUsuario)) {
+                            Actualizarmensaje("El tipo de usuario es incorrecto")
+                        }
+                        // Verificar la contraseña
+                        else if (response.data.Password === Password) {
+                            // Guardar el usuario en localStorage
+                            localStorage.setItem("usuario", JSON.stringify(response.data));
+                            navigate(`/inicio`)
+                        } else {
+                            Actualizarmensaje("La contraseña es incorrecta")
+                        }
                     }
-                    // Verificar la contraseña
-                    else if (response.data.Password === Password) {
-                        // Guardar el usuario en localStorage
-                        localStorage.setItem("usuario", JSON.stringify(response.data));
-                        navigate(`/inicio`)
-                    }else {
-                        Actualizarmensaje("La contraseña es incorrecta")
+                })
+                .catch(error => {
+                    console.error("Error: ", error)
+                    if (error.response && error.response.status === 404) {
+                        Actualizarmensaje("El usuario no existe")
+                    } else {
+                        Actualizarmensaje("Error al conectar con el servidor")
                     }
-                }
-            })
-            .catch(error => { 
-                console.error("Error: ", error)
-                if (error.response && error.response.status === 404) {
-                    Actualizarmensaje("El usuario no existe")
-                } else {
-                    Actualizarmensaje("Error al conectar con el servidor")
-                }
-            }) 
+                })
         }
     };
-    
+
     return (
         <div>
             <Logo></Logo>
@@ -72,17 +75,17 @@ function Login() {
                 <div className="login-page">
                     <div className="form">
                         <div className="login-form">
-                            <select name="Tipo de usuario" id="Usuario" value={TipoUsuario} 
-                            onChange={(e) => ActualizarTipoUsuario(e.target.value)}>
+                            <select name="Tipo de usuario" id="Usuario" value={TipoUsuario}
+                                onChange={(e) => ActualizarTipoUsuario(e.target.value)}>
                                 <option value="">Tipo de usuario</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Analista de inventario</option>
                                 <option value="3">Lider de cuadrilla</option>
                             </select>
-                            <input id="usuario" type="text" placeholder="Usuario" value={Cedula} 
-                            onChange={(e) => ActualizarCedula(e.target.value)}/>
-                            <input id="contraseña" type="password" placeholder="Contraseña" value={Password} 
-                            onChange={(e) => ActualizarPassword(e.target.value)}/>
+                            <input id="usuario" type="text" placeholder="Usuario" value={Cedula}
+                                onChange={(e) => ActualizarCedula(e.target.value)} />
+                            <input id="contraseña" type="password" placeholder="Contraseña" value={Password}
+                                onChange={(e) => ActualizarPassword(e.target.value)} />
                             <p style={{ color: "red" }}>{mensaje}</p>
                             <button id="ingresar" onClick={validarDatos}>Ingresar</button>
                         </div>
